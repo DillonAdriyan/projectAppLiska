@@ -68,7 +68,7 @@
             <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
-              <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              <img class="h-8 w-8 rounded-full" src="dist/img/1.png" alt="">
             </button>
           </div>
 
@@ -107,8 +107,9 @@
 <!-- end navbar section  -->
 
 <!-- start section hero -->
-<section id="hero" class="pb-36">
+<section id="hero" class="md:pb-32">
  <div class="container">
+
   <div class="flex flex-wrap">
    <div class="w-full px-4 md:w-1/2 self-center text-start mt-12">
     <h1 class="text-3xl md:text-4xl font-bold text-primary mt-12">
@@ -130,11 +131,23 @@
    </div>
   </div>
  </div>
+ <div class="relative pt-28 mt-8 md:-mt-12">
+ <div class="absolute w-full">
+  
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#06b6d4" fill-opacity="0.2" d="M0,64L40,69.3C80,75,160,85,240,101.3C320,117,400,139,480,176C560,213,640,267,720,245.3C800,224,880,128,960,106.7C1040,85,1120,139,1200,144C1280,149,1360,107,1400,85.3L1440,64L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+ </div>
+ <div class="absolute z-10 w-full">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#06b6d4" fill-opacity="0.4" d="M0,0L40,32C80,64,160,128,240,133.3C320,139,400,85,480,101.3C560,117,640,203,720,208C800,213,880,139,960,128C1040,117,1120,171,1200,165.3C1280,160,1360,96,1400,64L1440,32L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+ </div>
+ <div class="absolute z-20 w-full">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#06b6d4" fill-opacity="0.2" d="M0,192L40,165.3C80,139,160,85,240,90.7C320,96,400,160,480,154.7C560,149,640,75,720,74.7C800,75,880,149,960,176C1040,203,1120,181,1200,170.7C1280,160,1360,160,1400,160L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+ </div>
+ </div>
 </section>
 <!-- end section hero -->
 
 <!-- About section start  -->
- <section id="about" class="transition duration-700 ease-in-out pt-16 pb-32 bg-gray-50">
+ <section id="about" class="transition duration-700 ease-in-out pt-16 pb-32 bg-gray-50 mt-24">
   <div class="container">
    <div class="flex flex-wrap">
     <div class="w-full px-4 mb-10 md:w-1/2">
@@ -169,8 +182,150 @@
     </div>
    </div>
   </div>
+  
  </section>
  <!-- About section end  -->
+ 
+ <!-- Cerita section start  -->
+ <section id="cerita" class="pb-32 mt-24">
+  <div class="container">
+   <h1 class="text-4xl text-primary font-bold text-center pb-2">
+    Cerita 
+   </h1>
+   <h2 class="text-center font-medium text-gray-700 mb-6 text-md">Cerita kita tak kan seperti di layar-layar kaca....🎵🎵</h2>
+   <div class="w-full h-2 bg-white mb-8 rounded-xl"></div>
+   <div class="flex flex-wrap justify-end">
+   <div class="w-full md:w-1/2 mb-16 px-4">
+     <div class="w-1/2 flex items-center">
+        <div id="gambar" class="w-10 h-10 rounded-full bg-primary mb-2 mr-2 overflow-hidden">
+            <img src="dist/img/1.png" alt="" height="80">
+        </div>
+        <div class="-mt-2">
+            <h2 id="user" class="text-sm font-dark2 font-bold inline-block">Dillon Adriyan</h2>
+            <h3 id="date" class="text-xs font-semibold text-gray-600">13 Oktober 2023</h3>
+        </div>
+    </div>
+    
+    
+    <div class="w-full pb-6 rounded-xl shadow-md bg-white overflow-hidden">
+     <img class="mx-auto w-full max-h-[100px] object-cover my-auto" src="https://source.unsplash.com/360x200?natural" alt="Blog">
+     <h2 class="pl-4 font-bold text-dark text-2xl pt-3">Jagoan Neon?? </h2>     <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">Ditulis oleh: 
+     <span class="text-primary">
+      Dillon Adriyan</span>
+      </h3> 
+
+     <p class="font-semibold text-semidark text-sm pl-4">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae omnis vel unde.
+     </p>
+    </div>
+    <div class="w-28 h-10 rounded-full mt-2 bg-white mr-8 shadow-md">
+     <img class="max-h-5 inline-block ml-6 mt-2 hover:animate-bounce hover:text-primary" src="dist/resource/like.svg" alt="">
+     <img class="max-h-5 ml-4 inline-block mt-2 hover:animate-bounce hover:text-primary" src="dist/resource/heart.svg" alt="">
+     
+    </div>
+    </div>
+    
+    <!-- batas blog -->
+    
+   <div class="w-full md:w-1/2 mb-16 px-4">
+     <div class="w-1/2 flex items-center">
+        <div id="gambar" class="w-10 h-10 rounded-full bg-primary mb-2 mr-2 overflow-hidden">
+            <img src="dist/img/1.png" alt="" height="80">
+        </div>
+        <div class="-mt-2">
+            <h2 id="user" class="text-sm font-dark2 font-bold inline-block">Ahmad Royan</h2>
+            <h3 id="date" class="text-xs font-semibold text-gray-600">13 September 1920</h3>
+        </div>
+    </div>
+    
+    
+    <div class="w-full pb-6 rounded-xl shadow-md bg-white overflow-hidden">
+     <img class="mx-auto w-full max-h-[100px] object-cover my-auto" src="https://source.unsplash.com/360x200?scout" alt="Blog">
+     <h2 class="pl-4 font-bold text-dark text-2xl pt-3">Harta Boden Powel??</h2>     <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">Ditulis oleh: 
+     <span class="text-primary">
+      Dillon Adriyan</span>
+      </h3> 
+
+     <p class="font-semibold text-semidark text-sm pl-4">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit incidunt consectetur delectus quia explicabo, accusantium, ad ab. Similique quaerat deserunt quos aliquam reprehenderit.
+     </p>
+    </div>
+    <div class="w-28 h-10 rounded-full mt-2 bg-white mr-8 shadow-md">
+     <img class="max-h-5 inline-block ml-6 mt-2 hover:animate-bounce hover:text-primary" src="dist/resource/like.svg" alt="">
+     <img class="max-h-5 ml-4 inline-block mt-2 hover:animate-bounce hover:text-primary" src="dist/resource/heart.svg" alt="">
+     
+    </div>
+    </div>
+    
+    <!-- batas blog -->
+    
+   <div class="w-full md:w-1/2 mb-16 px-4">
+     <div class="w-1/2 flex items-center">
+        <div id="gambar" class="w-10 h-10 rounded-full bg-primary mb-2 mr-2 overflow-hidden">
+            <img src="dist/img/1.png" alt="" height="80">
+        </div>
+        <div class="-mt-2">
+            <h2 id="user" class="text-sm font-dark2 font-bold inline-block">Sahitya Risky</h2>
+            <h3 id="date" class="text-xs font-semibold text-gray-600">13 Oktober 2023</h3>
+        </div>
+    </div>
+    
+    
+    <div class="w-full pb-6 rounded-xl shadow-md bg-white overflow-hidden">
+     <img class="mx-auto w-full max-h-[100px] object-cover my-auto" src="https://source.unsplash.com/360x200?space" alt="Blog">
+     <h2 class="pl-4 font-bold text-dark text-2xl pt-3">Planet Baru??</h2>     <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">Ditulis oleh: 
+     <span class="text-primary">
+      Dillon Adriyan</span>
+      </h3> 
+
+     <p class="font-semibold text-semidark text-sm pl-4">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam ab eveniet alias officia exercitationem. Nihil eius a facilis hic enim.
+     </p>
+    </div>
+    <div class="w-28 h-10 rounded-full mt-2 bg-white mr-8 shadow-md">
+     <img class="max-h-5 inline-block ml-6 mt-2 hover:animate-bounce hover:text-primary" src="dist/resource/like.svg" alt="">
+     <img class="max-h-5 ml-4 inline-block mt-2 hover:animate-bounce hover:text-primary" src="dist/resource/heart.svg" alt="">
+     
+    </div>
+    </div>
+    
+    <!-- batas blog -->
+    
+   <div class="w-full md:w-1/2 mb-16 px-4">
+     <div class="w-1/2 flex items-center">
+        <div id="gambar" class="w-10 h-10 rounded-full bg-primary mb-2 mr-2 overflow-hidden">
+            <img src="dist/img/1.png" alt="" height="80">
+        </div>
+        <div class="-mt-2">
+            <h2 id="user" class="text-sm font-dark2 font-bold inline-block">Rafi Attalah</h2>
+            <h3 id="date" class="text-xs font-semibold text-gray-600">1 Januari 2050</h3>
+        </div>
+    </div>
+    
+    
+    <div class="w-full pb-6 rounded-xl shadow-md bg-white overflow-hidden">
+     <img class="mx-auto w-full max-h-[100px] object-cover my-auto" src="https://source.unsplash.com/360x200?religi" alt="Blog">
+     <h2 class="pl-4 font-bold text-dark text-2xl pt-3">Islam Berjaya</h2>     <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">Ditulis oleh: 
+     <span class="text-primary">
+      Dillon Adriyan</span>
+      </h3> 
+
+     <p class="font-semibold text-semidark text-sm pl-4">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam ab eveniet alias officia exercitationem. Nihil eius a facilis hic enim.
+     </p>
+    </div>
+    <div class="w-28 h-10 rounded-full mt-2 bg-white mr-8 shadow-md">
+     <img class="max-h-5 inline-block ml-6 mt-2 hover:animate-bounce hover:text-primary" src="dist/resource/like.svg" alt="">
+     <img class="max-h-5 ml-4 inline-block mt-2 hover:animate-bounce hover:text-primary" src="dist/resource/heart.svg" alt="">
+     
+    </div>
+    </div>
+    </div>
+   </div>
+  
+ </section>
+ <!-- Cerita section end  -->
+ 
 
 <div class="pb-36">
 </div>
