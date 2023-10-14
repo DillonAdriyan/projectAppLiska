@@ -1,0 +1,22 @@
+{
+  "name": "designapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "watch": "npx tailwindcss -i src/input.css -o dist/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DillonAdriyan/projectAppLiska.git"
+  },
+  "keywords": [
+    "ProjectLiska"
+  ],
+  "author": "DillonAdriyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DillonAdriyan/projectAppLiska/issues"
+  },
+  "homepage": "https://github.com/DillonAdriyan/projectAppLiska#readme"
+}
