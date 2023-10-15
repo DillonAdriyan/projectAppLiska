@@ -63,3 +63,27 @@ function activeLink() {
   this.classList.add("active");
 }
 list.forEach((item) => item.addEventListener("click", activeLink));
+
+
+// dark mode
+const darkToggle = document.querySelector('#dark-toggle');
+const html = document.querySelector('html');
+
+// dark mode
+darkToggle.addEventListener("click", function() {
+  if(darkToggle.checked) {
+    html.setAttribute('data-theme', 'dark');
+    localStorage.theme = 'dark';
+  } else {
+    html.setAttribute('data-theme', 'light');
+    localStorage.theme = 'light';
+  }
+});
+
+// pindahkan toggle sesuai mode
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+ 
+  darkToggle.checked = true;
+} else {
+  darkToggle.checked = false;
+}

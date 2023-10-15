@@ -40,6 +40,8 @@ body {
 }
 
 
-#Cerita p {
- color: #141212;
+
+/* dark toggle */
+#dark-toggle:checked ~ label div.toggle-circle {
+  @apply translate-x-3;
 }
