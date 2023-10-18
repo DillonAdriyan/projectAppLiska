@@ -1,63 +1,271 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
- <link rel="stylesheet" href="dist/output.css">
- <meta http-equiv="X-UA-Compatible" content="ie=edge">
- <title>User Page</title>
-</head>
-<body class="">
- <header>
-  <div class="navbar bg-primary">
-  <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl text-accent-content">daisyUI</a>
-  </div>
-  <div class="flex-none">
-    <div class="dropdown dropdown-end">
+<html lang="en" data-theme="dark">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="dist/output.css" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>User Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Arizonia&family=Dancing+Script:wght@400;600;700&family=Gloock&family=Gloria+Hallelujah&family=Great+Vibes&family=Inter:wght@400;500&family=Italianno&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@500;600;700&family=Pinyon+Script&family=Playfair+Display:wght@400;500;600&family=Roboto+Mono&display=swap"
+   rel="stylesheet"
+  />
+  <style>
+   body {
+    font-family: "Open Sans", Sans-Serif;
+   }
+  </style>
+ </head>
+ <body class="">
+  <header>
+   <div class="navbar bg-base">
+    <div class="flex-1">
+     <a class="btn btn-ghost normal-case text-xl text-accent-content"
+      >e-Liska</a
+     >
+    </div>
+    <div class="flex-none">
+     <div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle">
-        <div class="indicator text-accent-content">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-          <span class="badge badge-sm indicator-item text-accent-content">8</span>
-        </div>
+       <div class="indicator text-accent-content">
+        <svg
+         xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"
+        >
+         <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+         />
+        </svg>
+        <span class="badge badge-sm indicator-item text-accent-content">8</span>
+       </div>
       </label>
-      <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
-        <div class="card-body">
-          <span class="font-bold text-lg">8 Items</span>
-          <span class="text-info">Subtotal: $999</span>
-          <div class="card-actions">
-            <button class="btn btn-primary btn-block">View cart</button>
-          </div>
+      <div
+       tabindex="0"
+       class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+      >
+       <div class="card-body">
+        <span class="font-bold text-lg">8 Items</span>
+        <span class="text-info">Subtotal: $999</span>
+        <div class="card-actions">
+         <button class="btn btn-primary btn-block">View cart</button>
         </div>
+       </div>
       </div>
-    </div>
-    <div class="dropdown dropdown-end">
+     </div>
+     <div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full bg-base-100">
-          <img src="dist/img/1.png" />
-        </div>
+       <div class="w-10 rounded-full bg-primary ">
+        <img src="dist/img/1.png" />
+       </div>
       </label>
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li>
-          <a class="justify-between">
-            Profile
-            <span class="badge">New</span>
-          </a>
-        </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+      <ul
+       tabindex="0"
+       class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+      >
+       <li>
+        <a class="justify-between">
+         Profile
+         <span class="badge">New</span>
+        </a>
+       </li>
+       <li><a>Settings</a></li>
+       <li><a>Logout</a></li>
       </ul>
+     </div>
     </div>
+   </div>
+  </header>
+
+  <!-- end header section  -->
+
+  <section id="hello mt-4">
+   <div class="container">
+    <h1 class="font-bold text-4xl ml-2">Halo, Dillon!</h1>
+    <p class="ml-3 text-sm font-semibold text-primary">
+     Bagaimana kabar anda hari ini?
+    </p>
+   </div>
+  </section>
+  <div class="container mt-8">
+   <form>
+    <label
+     for="default-search"
+     class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+     >Search</label
+    >
+    <div class="relative">
+     <div
+      class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+     >
+      <svg
+       class="w-4 h-4 text-gray-500 dark:text-gray-400"
+       aria-hidden="true"
+       xmlns="http://www.w3.org/2000/svg"
+       fill="none"
+       viewBox="0 0 20 20"
+      >
+       <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+       />
+      </svg>
+     </div>
+     <input
+      type="search"
+      id="default-search"
+      class="block w-full p-4 pl-10 text-sm text-gray-900 rounded-lg border-none focus:ring-info focus:border-info bg-cyan-50 dark:placeholder-gray-400 text-accent-content dark:focus:ring-info dark:focus:border-info"
+      placeholder="Search Mockups, Logos..."
+      required
+     />
+     <button
+      type="submit"
+      class="text-white absolute right-2.5 bottom-2.5 bg-primary  hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary  dark:hover:bg-cyan-700 dark:focus:ring-blue-800"
+     >
+      Search
+     </button>
+    </div>
+   </form>
   </div>
-</div>
- </header>
- 
- <!-- end header section  -->
- 
- <section id="hello">
-  <h1 >Halo, Selamat Datang Dillon</h1>
-  <p>Bagaimana kabar anda hari ini?</p>
- </section>
-</body>
+
+  <!-- tabs section  -->
+  <div class="container mt-4">
+   <div class="tabs font-bold">
+    <a class="tab">Home</a>
+    <a class="tab tab-active">Blog</a>
+    <a class="tab">Buku</a>
+    <a class="tab">Cerita</a>
+    <a class="tab">Berita</a>
+   </div>
+  </div>
+  <!-- tabs section  -->
+
+  <!--  Carousel section  -->
+  <div class="container mt-4">
+  <div
+   class="carousel carousel-center w-full p-4 space-x-4 rounded-box"
+  >
+   <div class="carousel-item w-2/3 lg:w-1/2">
+    <div class="card    bg-primary  text-accent-content ">
+     <div class="card-body">
+      <h2 class="card-title">Card title!</h2>
+      <p>If a dog chews shoes whose shoes does he choose?</p>
+      <div class="card-actions justify-end">
+       <button class="btn glass text-accent-content">Lihat</button>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="carousel-item w-2/3 lg:w-1/2">
+    <div class="card    bg-primary  text-accent-content ">
+     <div class="card-body">
+      <h2 class="card-title">Card title!</h2>
+      <p>If a dog chews shoes whose shoes does he choose?</p>
+      <div class="card-actions justify-end">
+       <button class="btn glass text-accent-content">Lihat</button>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="carousel-item w-2/3 lg:w-1/2">
+    <div class="card    bg-primary  text-accent-content ">
+     <div class="card-body">
+      <h2 class="card-title">Card title!</h2>
+      <p>If a dog chews shoes whose shoes does he choose?</p>
+      <div class="card-actions  justify-end">
+       <button class="btn glass text-accent-content">Lihat</button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  </div>
+  <!--  Carousel section  -->
+  <div class="w-full bg-base-300 mt-12 mb-8 px-4 h-[2px] rounded-full"></div>
+  <!-- buat blog section -->
+  <section id="buat-blog" class="pb-36">
+   
+  <div class="container">
+   <h1 class="text-2xl font-bold mt-2 mb-4 ml-6">BUAT BLOG</h1>
+   <div class="w-full h-1 bg-primary rounded-full mb-8"></div>
+  <form action="">
+   <h1 class="text-xl font-bold mt-4 ml-2">BANNER</h1>
+   <input type="file" class="file-input file-input-bordered file-input-primary w-full mt-2" />
+   <h1 class="text-xl font-bold mt-4 ml-2">JUDUL</h1>
+   <input id="judul" type="text" placeholder="Masukan Judul..." class="input input-bordered input-primary w-full mt-2" />
+   <h1 class="text-xl font-bold mt-4 ml-2">DESKRIPSI</h1>
+   <textarea class="textarea textarea-primary textarea-lg w-full mt-2 " placeholder="Tulis Deskripsi.."></textarea>
+   <button type="submit" class="btn btn-primary mt-2">Upload</button>
+  </form>
+  </div> 
+  </section>
+  
+  <!-- buat blog section -->
+  
+
+  <!-- navsection -->
+
+  <div class="btm-nav md:hidden bg-base-200">
+   <button class="text-primary">
+    <svg
+     xmlns="http://www.w3.org/2000/svg"
+     class="h-5 w-5"
+     fill="none"
+     viewBox="0 0 24 24"
+     stroke="currentColor"
+    >
+     <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+     />
+    </svg>
+   </button>
+   <button class="active text-primary">
+    <svg
+     xmlns="http://www.w3.org/2000/svg"
+     class="h-5 w-5"
+     fill="none"
+     viewBox="0 0 24 24"
+     stroke="currentColor"
+    >
+     <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+     />
+    </svg>
+   </button>
+   <button class="text-primary">
+    <svg
+     xmlns="http://www.w3.org/2000/svg"
+     class="h-5 w-5"
+     fill="none"
+     viewBox="0 0 24 24"
+     stroke="currentColor"
+    >
+     <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+     />
+    </svg>
+   </button>
+  </div>
+  <!-- navsection -->
+ </body>
 </html>

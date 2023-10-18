@@ -26,7 +26,10 @@
           <label class="label">
             <span class="label-text">Password</span>
           </label>
-          <input type="password" placeholder="password" class="input input-bordered" required />
+          <div class="flex">
+          <input type="password" placeholder="password" class="input input-bordered w-4/5" id="login-pw" required /><div id="show-pw" class="w-1/5 mt-2 text-center py-1 px-2 border-0 border gray-100">show
+          </div>
+          </div>
           <label class="label">
             <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
           </label>
@@ -39,26 +42,17 @@
   </div>
 </div>
 <script>
- const darkToggle = document.querySelector('#dark-toggle');
-const html = document.querySelector('html');
-
-darkToggle.addEventListener("click", function() {
-  if(darkToggle.checked) {
-    html.classList.add('dark');
-    localStorage.theme = 'dark';
-  } else {
-    html.classList.remove('dark');
-    localStorage.theme = 'light';
-  }
-});
-
-// pindahkan toggle sesuai mode
-if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+ const showPw = document.querySelector("#show-pw")
+ const inputPw = document.querySelector("#login-pw")
  
-  darkToggle.checked = true;
-} else {
-  darkToggle.checked = false;
-}
+ showPw.addEventListener('click', function(){
+  if (inputPw.type == "password") {
+  inputPw.type = "text"
+   
+  } else {
+   inputPw.type = "password"
+  }
+ })
 </script>
 </body>
 </html>
