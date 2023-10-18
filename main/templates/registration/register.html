@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ <div class="hero min-h-screen bg-base-200">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-center lg:text-left">
+      <h1 class="text-5xl font-bold">Login now!</h1>
+      <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+    </div>
+    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <form class="card-body" method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+       <label class="label">
+            <span class="label-text">Foto Profil</span>
+          </label>
+       <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs" name="profile_picture"/>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Username</span>
+          </label>
+          <input type="text" placeholder="username" class="input input-bordered" name="username" required />
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Nama Depan</span>
+          </label>
+          <input type="text" placeholder="Nama depan" class="input input-bordered" name="first_name" required />
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Nama Belakang</span>
+          </label>
+          <input type="text" placeholder="Nama belakang" class="input input-bordered" name="last_name" required />
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Email</span>
+          </label>
+          <input type="email" placeholder="email" class="input input-bordered" name="email" required />
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Password</span>
+          </label>
+          <div class="flex">
+          <input type="password" placeholder="password" class="input input-bordered w-4/5" id="login-pw" name="password1" required /><div id="show-pw" class="w-1/5 mt-2 text-center py-1 px-2 border-0 border gray-100">show
+          </div>
+          </div>
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Konfirmasi Password</span>
+          </label>
+          <div class="flex">
+          <input type="password" placeholder="konfirmasi password" class="input input-bordered w-4/5" id="login-pw2" name="password2" required /><div id="show-pw2" class="w-1/5 mt-2 text-center py-1 px-2 border-0 border gray-100">show
+          </div>
+          </div>
+        </div>
+        <div class="form-control mt-6">
+          <button class="btn btn-primary">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+ const showPw = document.querySelector("#show-pw")
+ const inputPw = document.querySelector("#login-pw")
+ const showPw2 = document.querySelector("#show-pw2")
+ const inputPw2 = document.querySelector("#login-pw2")
+ 
+ showPw.addEventListener('click', function(){
+  if (inputPw.type == "password") {
+  inputPw.type = "text"
+   
+  } else {
+   inputPw.type = "password"
+  }
+ })
+ showPw2.addEventListener('click', function(){
+  if (inputPw2.type == "password") {
+  inputPw.type = "text"
+   
+  } else {
+   inputPw.type = "password"
+  }
+ })
+</script>
+{% endblock %}

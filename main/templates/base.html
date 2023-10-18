@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>User Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Arizonia&family=Dancing+Script:wght@400;600;700&family=Gloock&family=Gloria+Hallelujah&family=Great+Vibes&family=Inter:wght@400;500&family=Italianno&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@500;600;700&family=Pinyon+Script&family=Playfair+Display:wght@400;500;600&family=Roboto+Mono&display=swap"
+   rel="stylesheet"
+  />
+
+ </head>
+ <body class="">
+  <header>
+   <div class="navbar bg-base">
+    <div class="flex-1">
+     <a class="btn btn-ghost normal-case text-xl text-accent-content"
+      >e-Liska</a
+     >
+    </div>
+    <div class="flex-none">
+     <div class="dropdown dropdown-end">
+      <label tabindex="0" class="btn btn-ghost btn-circle">
+       <div class="indicator text-accent-content">
+        <svg
+         xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"
+        >
+         <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+         />
+        </svg>
+        <span class="badge badge-sm indicator-item text-accent-content">8</span>
+       </div>
+      </label>
+      <div
+       tabindex="0"
+       class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+      >
+       <div class="card-body">
+        <span class="font-bold text-lg">8 Items</span>
+        <span class="text-info">Subtotal: $999</span>
+        <div class="card-actions">
+         <button class="btn btn-primary btn-block">View cart</button>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="dropdown dropdown-end">
+      <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+       <div class="w-10 rounded-full bg-primary ">
+        <img src="dist/img/1.png" />
+       </div>
+      </label>
+      <ul
+       tabindex="0"
+       class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+      >
+       <li>
+        <a class="justify-between">
+         Profile
+         <span class="badge">New</span>
+        </a>
+       </li>
+       <li><a>Settings</a></li>
+       <li><a>Logout</a></li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </header>
+
+
+  {% block content %}
+  {% endblock %}
+   </body>
+</html>
