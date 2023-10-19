@@ -1,22 +1,26 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>User Page</title>
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
    href="https://fonts.googleapis.com/css2?family=Arizonia&family=Dancing+Script:wght@400;600;700&family=Gloock&family=Gloria+Hallelujah&family=Great+Vibes&family=Inter:wght@400;500&family=Italianno&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@500;600;700&family=Pinyon+Script&family=Playfair+Display:wght@400;500;600&family=Roboto+Mono&display=swap"
    rel="stylesheet"
   />
-
+   <script>
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+   document.documentElement.classList.add('dark')
+  } else {
+   document.documentElement.classList.remove('dark')
+  }
+ </script>
+  <title>e-Liska</title>
  </head>
- <body class="">
+ <body>
   <header>
    <div class="navbar bg-base">
     <div class="flex-1">

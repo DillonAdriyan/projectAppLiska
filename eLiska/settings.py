@@ -1,6 +1,14 @@
-# import os
+import os
+import sys
+
 # 
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# settings.py
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_REDIRECT_URL = 'dashboard'  # Ganti 'home' dengan nama rute halaman yang sesuai
 
 # Kemudian, Anda dapat menetapkan MEDIA_ROOT seperti yang Anda tunjukkan sebelumnya:
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
