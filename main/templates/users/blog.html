@@ -1,17 +1,9 @@
 {% extends 'base.html' %}
 {% block content %} 
   <!-- end header section  -->
-  <section id="hello mt-4">
-   <div class="container">
-    <h1 class="font-bold text-4xl ml-2">Halo, Dillon!</h1>
-    <p class="ml-3 text-sm font-semibold text-primary">
-     Bagaimana kabar anda hari ini?
-    </p>
-   </div>
-  </section>
     <section id="hello mt-4">
    <div class="container">
-    <h1 class="font-bold text-4xl ml-2">Halo, Dillon!</h1>
+    <h1 class="font-bold text-4xl ml-2">Halo, {{ username }}</h1>
     <p class="ml-3 text-sm font-semibold text-primary">
      Bagaimana kabar anda hari ini?
     </p>
@@ -121,13 +113,17 @@
   <div class="container">
    <h1 class="text-2xl font-bold mt-2 mb-4 ml-6">BUAT BLOG</h1>
    <div class="w-full h-1 bg-primary rounded-full mb-8"></div>
-  <form action="">
+  <form method="post" enctype="multipart/form-data" action="{% url 'blog' %}">
+   {% csrf_token %}
+   {{ form.as_p }}
    <h1 class="text-xl font-bold mt-4 ml-2">BANNER</h1>
-   <input type="file" class="file-input file-input-bordered file-input-primary w-full mt-2" />
+   <input type="file" class="file-input file-input-bordered file-input-primary w-full mt-2" name="banner"/>
    <h1 class="text-xl font-bold mt-4 ml-2">JUDUL</h1>
-   <input id="judul" type="text" placeholder="Masukan Judul..." class="input input-bordered input-primary w-full mt-2" />
+   <input id="judul" type="text" placeholder="Masukan Judul..." class="input input-bordered input-primary w-full mt-2" name="judul"/>
    <h1 class="text-xl font-bold mt-4 ml-2">DESKRIPSI</h1>
-   <textarea class="textarea textarea-primary textarea-lg w-full mt-2 " placeholder="Tulis Deskripsi.."></textarea>
+   <textarea name="isi" class="textarea textarea-primary textarea-lg w-full mt-2 " placeholder="Tulis Deskripsi.."></textarea>
+   <!--h1 class="text-xl font-bold mt-4 ml-2">Penulis</h1>
+   <input type="text" id="penulis" name="penulis" required class="input input-bordered input-primary w-full mt-2 mb-2" value="{{ form.initial.penulis }}" readonly -->
    <button type="submit" class="btn btn-primary mt-2">Upload</button>
   </form>
   </div> 

@@ -79,6 +79,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.greeting',
+                
             ],
         },
     },
@@ -106,7 +108,7 @@ DATABASES = {
 #         'PORT': '',
     }
 }
-LOGIN_URL = ''  # Ganti 'login' dengan nama rute halaman login AuthenticationMiddleware
+LOGIN_URL = 'login'  # Ganti 'login' dengan nama rute halaman login AuthenticationMiddleware
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

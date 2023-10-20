@@ -3,9 +3,10 @@ from django.contrib import admin
 # from django.contrib.auth.admin import UserAdmin
 # from django.utils.html import format_html
 # from .forms import RegistrationForm
-from .models import ProfileSiswa
+from .models import ProfileSiswa, Blog
 
 admin.site.register(ProfileSiswa)
+admin.site.register(Blog)
 #admin.site.register(UserSiswa)
 #admin.site.register(CustomUser)
 # # Register your models here.
