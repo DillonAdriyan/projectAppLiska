@@ -322,6 +322,7 @@
      Menulis akan membuat mu lebih tenang dan bebam pikiran akan hilang.
     </h2>
     <div class="flex flex-wrap justify-end">
+     {% for blog in blogs %}
      <div class="w-full md:w-1/2 mb-16 px-4">
       <div class="w-1/2 flex items-center">
        <div
@@ -332,10 +333,10 @@
        </div>
        <div class="-mt-2">
         <h2 id="user" class="text-sm text-accent-content dark:text-accent-content font-bold inline-block">
-         Dillon Adriyan
+         {{ blog.nama_pengguna }}
         </h2>
         <h3 id="date" class="text-xs font-semibold text-gray-600">
-         13 Oktober 2023
+         {{ blog.tanggal_upload }}
         </h3>
        </div>
       </div>
@@ -346,15 +347,14 @@
         src="https://source.unsplash.com/360x200?natural"
         alt="Blog"
        />
-       <h2 class="pl-4 font-bold text-accent-content dark:text-accent-content text-2xl pt-3">Jagoan Neon??</h2>
+       <h2 class="pl-4 font-bold text-accent-content dark:text-accent-content text-2xl pt-3">{{ blog.judul }}</h2>
        <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">
         Ditulis oleh:
-        <span class="text-primary"> Dillon Adriyan</span>
+        <span class="text-primary"> {{ blog.nama_pengguna }}</span>
        </h3>
 
        <p class="font-semibold text-base-content text-sm pl-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-        omnis vel unde.
+        {{ blog.isi }}
        </p>
       </div>
       <div class="w-28 h-10 rounded-full mt-2 bg-white dark:bg-base-200 mr-8 shadow-md">
@@ -370,162 +370,8 @@
        />
       </div>
      </div>
-
+     {% endfor %}
      <!-- batas blog -->
-
-     <div class="w-full md:w-1/2 mb-16 px-4">
-      <div class="w-1/2 flex items-center">
-       <div
-        id="gambar"
-        class="w-10 h-10 rounded-full bg-primary mb-2 mr-2 overflow-hidden"
-       >
-        <img src="dist/img/1.png" alt="" height="80" />
-       </div>
-       <div class="-mt-2">
-        <h2 id="user" class="text-sm text-accent-content dark:text-accent-content font-bold inline-block">
-         Ahmad Royan
-        </h2>
-        <h3 id="date" class="text-xs font-semibold text-gray-600">
-         13 September 1920
-        </h3>
-       </div>
-      </div>
-
-      <div class="w-full pb-6 rounded-xl shadow-md bg-white dark:bg-base-200 overflow-hidden">
-       <img
-        class="mx-auto w-full max-h-[100px] object-cover my-auto"
-        src="https://source.unsplash.com/360x200?scout"
-        alt="Blog"
-       />
-       <h2 class="pl-4 font-bold text-accent-content dark:text-accent-content text-2xl pt-3">
-        Harta Boden Powel??
-       </h2>
-       <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">
-        Ditulis oleh:
-        <span class="text-primary"> Dillon Adriyan</span>
-       </h3>
-
-       <p class="font-semibold text-base-content text-sm pl-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit incidunt
-        consectetur delectus quia explicabo, accusantium, ad ab. Similique
-        quaerat deserunt quos aliquam reprehenderit.
-       </p>
-      </div>
-      <div class="w-28 h-10 rounded-full mt-2 bg-white dark:bg-base-200 mr-8 shadow-md">
-       <img
-        class="max-h-5 inline-block ml-6 mt-2 hover:animate-bounce hover:text-primary"
-        src="dist/resource/like.svg"
-        alt=""
-       />
-       <img
-        class="max-h-5 ml-4 inline-block mt-2 hover:animate-bounce hover:text-primary"
-        src="dist/resource/heart.svg"
-        alt=""
-       />
-      </div>
-     </div>
-
-     <!-- batas blog -->
-
-     <div class="w-full md:w-1/2 mb-16 px-4">
-      <div class="w-1/2 flex items-center">
-       <div
-        id="gambar"
-        class="w-10 h-10 rounded-full bg-primary mb-2 mr-2 overflow-hidden"
-       >
-        <img src="dist/img/1.png" alt="" height="80" />
-       </div>
-       <div class="-mt-2">
-        <h2 id="user" class="text-sm text-accent-content dark:text-accent-content font-bold inline-block">
-         Sahitya Risky
-        </h2>
-        <h3 id="date" class="text-xs font-semibold text-gray-600">
-         13 Oktober 2023
-        </h3>
-       </div>
-      </div>
-
-      <div class="w-full pb-6 rounded-xl shadow-md bg-white dark:bg-base-200 overflow-hidden">
-       <img
-        class="mx-auto w-full max-h-[100px] object-cover my-auto"
-        src="https://source.unsplash.com/360x200?space"
-        alt="Blog"
-       />
-       <h2 class="pl-4 font-bold text-accent-content dark:text-accent-content text-2xl pt-3">Planet Baru??</h2>
-       <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">
-        Ditulis oleh:
-        <span class="text-primary"> Dillon Adriyan</span>
-       </h3>
-
-       <p class="font-semibold text-base-content text-sm pl-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam ab
-        eveniet alias officia exercitationem. Nihil eius a facilis hic enim.
-       </p>
-      </div>
-      <div class="w-28 h-10 rounded-full mt-2 bg-white dark:bg-base-200 mr-8 shadow-md">
-       <img
-        class="max-h-5 inline-block ml-6 mt-2 hover:animate-bounce hover:text-primary"
-        src="dist/resource/like.svg"
-        alt=""
-       />
-       <img
-        class="max-h-5 ml-4 inline-block mt-2 hover:animate-bounce hover:text-primary"
-        src="dist/resource/heart.svg"
-        alt=""
-       />
-      </div>
-     </div>
-
-     <!-- batas blog -->
-
-     <div class="w-full md:w-1/2 mb-16 px-4">
-      <div class="w-1/2 flex items-center">
-       <div
-        id="gambar"
-        class="w-10 h-10 rounded-full bg-primary mb-2 mr-2 overflow-hidden"
-       >
-        <img src="dist/img/1.png" alt="" height="80" />
-       </div>
-       <div class="-mt-2">
-        <h2 id="user" class="text-sm text-accent-content dark:text-accent-content font-bold inline-block">
-         Rafi Attalah
-        </h2>
-        <h3 id="date" class="text-xs font-semibold text-gray-600">
-         1 Januari 2050
-        </h3>
-       </div>
-      </div>
-
-      <div class="w-full pb-6 rounded-xl shadow-md bg-white dark:bg-base-200 overflow-hidden">
-       <img
-        class="mx-auto w-full max-h-[100px] object-cover my-auto"
-        src="https://source.unsplash.com/360x200?religi"
-        alt="Blog"
-       />
-       <h2 class="pl-4 font-bold text-accent-content dark:text-accent-content text-2xl pt-3">Islam Berjaya</h2>
-       <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">
-        Ditulis oleh:
-        <span class="text-primary"> Dillon Adriyan</span>
-       </h3>
-
-       <p class="font-semibold text-base-content text-sm pl-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam ab
-        eveniet alias officia exercitationem. Nihil eius a facilis hic enim.
-       </p>
-      </div>
-      <div class="w-28 h-10 rounded-full mt-2 bg-white dark:bg-base-200 mr-8 shadow-md">
-       <img
-        class="max-h-5 inline-block ml-6 mt-2 hover:animate-bounce hover:text-primary"
-        src="dist/resource/like.svg"
-        alt=""
-       />
-       <img
-        class="max-h-5 ml-4 inline-block mt-2 hover:animate-bounce hover:text-primary"
-        src="dist/resource/heart.svg"
-        alt=""
-       />
-      </div>
-     </div>
     </div>
    </div>
   </section>

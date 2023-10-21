@@ -19,9 +19,10 @@ class BukuForm(forms.ModelForm):
         fields = ['judul', 'sinopsis', 'penulis', 'buku_pdf']
 # form blog
 class BlogForm(forms.ModelForm):
-    class Meta:
-        model = Blog
-        fields = ['judul', 'isi', 'nama_pengguna', 'banner']
+ class Meta:
+  model = Blog
+  fields = ['judul', 'isi', 'nama_pengguna' ]
+ 
 # form blog
 class CerPenForm(forms.ModelForm):
     class Meta:

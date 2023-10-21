@@ -88,6 +88,5 @@ class Blog(models.Model):
     isi = models.TextField()
     nama_pengguna = models.CharField(max_length=255)
     tanggal_upload = models.DateTimeField(auto_now_add=True)
-    banner = models.ImageField(upload_to='blog_banners/')
     def __str__(self):
      return self.judul

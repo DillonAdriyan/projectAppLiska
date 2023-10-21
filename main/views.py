@@ -10,40 +10,66 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views import View
-
-class BuatBuku(CreateView):
-    model = Buku
-    form_class = BukuForm
-    template_name = 'users/buku.html'
-    success_url = '/success'  # Atur ke URL yang sesuai
-
-class BuatBlog(CreateView):
-    model = Blog
-    form_class = BlogForm
-    template_name = 'users/blog.html'
-    success_url = 'blog'
-
-    def form_valid(self, form):
-        form.instance.penulis = self.request.user.first_name + " " + self.request.user.last_name
-        return super().form_valid(form)
+from django.http import HttpResponseRedirect
 
 
+def BuatBlog(request):
+ if request.method == 'POST':
+  if all(request.POST.get(key) for key in ['judul', 'isi', 'nama_pengguna', 'banner']):
+   form = Blog()
+   form.judul = request.POST.get('judul')
+   form.isi = request.POST.get('isi')
+   form.nama_pengguna = request.POST.get('nama_pengguna')
+   form.banner = request.POST.get('banner')
+   form.save()
+   return HttpResponseRedirect("/blog")
+ else:
+  form = Blog()
+ return render(request, 'users/blog.html', {'form': form})
 
 
-class BuatCerita(CreateView):
-    model = CeritaPendek
-    form_class = CerPenForm
-    template_name = 'users/cerpen.html'
-    success_url = '/success/' 
-    
-class BuatBerita(CreateView):
-    model = Berita
-    form_class = BeritaForm
-    template_name = 'users/berita.html'
-    success_url = '/success/' 
 
+
+
+
+# class BuatBuku(LoginRequiredMixin, CreateView):
+#     model = Buku
+#     form_class = BukuForm
+#     template_name = 'users/buku.html'
+#     success_url = '/success'  # Atur ke URL yang sesuai
+# 
+# 
+# 
+# class BuatBlog(CreateView):
+#     model = Blog
+#     form_class = BlogForm
+#     template_name = 'users/blog.html'
+#     success_url = 'blog'
+# 
+# 
+# 
+# 
+# class BuatCerita(CreateView):
+#     model = CeritaPendek
+#     form_class = CerPenForm
+#     template_name = 'users/cerpen.html'
+#     success_url = '/success/' 
+#     
+# class BuatBerita(CreateView):
+#     model = Berita
+#     form_class = BeritaForm
+#     template_name = 'users/berita.html'
+#     success_url = '/success/' 
+# 
 def home(request):
- return render(request, "home/home.html")
+ # Get the current user's data
+ user = request.user
+
+ # Combine the first name and last name into a single string for the "penulis" field
+ pengguna = f"{user.first_name} {user.last_name}"
+ blogs = Blog.objects.all()
+ context = { 'blogs': blogs, 'pengguna': pengguna}
+ return render(request, "home/home.html", context)
 
 
 class DashboardBase(LoginRequiredMixin, View):
@@ -125,102 +151,34 @@ class CustomLoginView(LoginView):
     
 
 
-
-# buku def
-@login_required
-def buku(request):
-    # Dapatkan data pengguna saat ini
-    user = request.user
-
-    # Gabungkan nama depan dan nama belakang menjadi satu string untuk field "penulis"
-    default_penulis = f"{user.first_name} {user.last_name}"
-
-    # Buat form dan atur nilai default untuk field "penulis"
-    form = BukuForm(initial={'penulis': default_penulis})
-
-    if request.method == 'POST':
-        # Proses form yang dikirim oleh pengguna
-        form = BukuForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            # Simpan data buku ke dalam database
-            buku = form.save()
-            # Redirect ke halaman sukses atau halaman lain yang sesuai
-            return redirect('success')
-
-    return render(request, 'users/buku.html', {'form': form})
-    
-
-
-# blog def
-@login_required
 def blog(request):
-    # Dapatkan data pengguna saat ini
+    # Get the current user's data
     user = request.user
 
-    # Gabungkan nama depan dan nama belakang menjadi satu string untuk field "penulis"
+    # Combine the first name and last name into a single string for the "penulis" field
     default_penulis = f"{user.first_name} {user.last_name}"
 
-    # Buat form dan atur nilai default untuk field "penulis"
-    form = BlogForm(initial={'penulis': default_penulis})
-
     if request.method == 'POST':
-        # Proses form yang dikirim oleh pengguna
-        form = BlogForm(request.POST, request.FILES)
-
+        # Process the form submitted by the user
+        form = BlogForm(request.POST)
         if form.is_valid():
-            # Simpan data buku ke dalam database
-            Blog = form.save()
-            # Redirect ke halaman sukses atau halaman lain yang sesuai
-            return redirect('success')
-    context = {'form': form, 'username': user.username}
-    return render(request, 'users/blog.html', {'form': form})
+            # Create an instance of the Blog model and populate it with form data
+            blog = Blog(
+                nama_pengguna=form.cleaned_data['nama_pengguna'],
+                judul=form.cleaned_data['judul'],
+                isi=form.cleaned_data['isi'],
+            )
+            blog.save()  # Save the instance to the database
 
+            # Redirect to a success page or another appropriate page
+            return redirect('/blog')
+    else:
+        form = BlogForm(initial={'penulis': default_penulis})
+    form = BlogForm()
+    form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
+    form.fields['isi'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
+    form.fields['nama_pengguna'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'value': default_penulis})
+    blogs = Blog.objects.all()
 
-# berita def
-@login_required
-def berita(request):
-    # Dapatkan data pengguna saat ini
-    user = request.user
-
-    # Gabungkan nama depan dan nama belakang menjadi satu string untuk field "penulis"
-    default_penulis = f"{user.first_name} {user.last_name}"
-
-    # Buat form dan atur nilai default untuk field "penulis"
-    form = BeritaForm(initial={'penulis': default_penulis})
-
-    if request.method == 'POST':
-        # Proses form yang dikirim oleh pengguna
-        form = BeritaForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            # Simpan data buku ke dalam database
-            berita = form.save()
-            # Redirect ke halaman sukses atau halaman lain yang sesuai
-            return redirect('success')
-
-    return render(request, 'users/berita.html', {'form': form})
-
-# cerita def
-@login_required
-def cerita(request):
-    # Dapatkan data pengguna saat ini
-    user = request.user
-
-    # Gabungkan nama depan dan nama belakang menjadi satu string untuk field "penulis"
-    default_penulis = f"{user.first_name} {user.last_name}"
-
-    # Buat form dan atur nilai default untuk field "penulis"
-    form = CerPenForm(initial={'penulis': default_penulis})
-
-    if request.method == 'POST':
-        # Proses form yang dikirim oleh pengguna
-        form = CerPenForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            # Simpan data buku ke dalam database
-            cerita = form.save()
-            # Redirect ke halaman sukses atau halaman lain yang sesuai
-            return redirect('success')
-
-    return render(request, 'users/cerpen.html', {'form': form})
+    context = {'form': form, 'username': user.username, 'blogs': blogs}
+    return render(request, 'users/blog.html', context)
