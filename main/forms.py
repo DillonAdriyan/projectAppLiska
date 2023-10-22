@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Buku, Blog, CeritaPendek, Berita
+from .models import Buku, Blog, CeritaPendek, Berita, Puisi
 
 class RegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length=100, required=True)  # Nama Lengkap
@@ -17,11 +17,26 @@ class BukuForm(forms.ModelForm):
     class Meta:
         model = Buku
         fields = ['judul', 'sinopsis', 'penulis', 'buku_pdf']
-# form blog
+
+
 class BlogForm(forms.ModelForm):
- class Meta:
-  model = Blog
-  fields = ['judul', 'isi', 'nama_pengguna' ]
+    class Meta:
+        model = Blog
+        fields = ['judul', 'isi', 'nama_pengguna']
+        widgets = {
+            'isi': forms.Textarea(attrs={'class': 'markdown-editor'}),
+        }
+        
+# puisi form
+class PuisiForm(forms.ModelForm):
+    class Meta:
+        model = Puisi
+        fields = ['judul', 'isi', 'penulis']
+        widgets = {
+            'isi': forms.Textarea(attrs={'class': 'markdown-editor'}),
+        }
+
+
  
 # form blog
 class CerPenForm(forms.ModelForm):

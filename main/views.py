@@ -1,17 +1,17 @@
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from .forms import RegistrationForm, BukuForm, BlogForm, CerPenForm, BeritaForm
+from .forms import RegistrationForm, BukuForm, BlogForm, CerPenForm, BeritaForm, PuisiForm
 # views.py
 from django.views.generic.edit import CreateView
-from .models import Buku, Blog, CeritaPendek, Berita
+from .models import Buku, Blog, CeritaPendek, Berita, Puisi
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.http import HttpResponseRedirect
-
+import markdown
 
 def BuatBlog(request):
  if request.method == 'POST':
@@ -182,3 +182,46 @@ def blog(request):
 
     context = {'form': form, 'username': user.username, 'blogs': blogs}
     return render(request, 'users/blog.html', context)
+def puisi(request):
+    # Get the current user's data
+    user = request.user
+
+    # Combine the first name and last name into a single string for the "penulis" field
+    default_penulis = f"{user.first_name} {user.last_name}"
+
+    if request.method == 'POST':
+        # Process the form submitted by the user
+        form = PuisiForm(request.POST)
+        if form.is_valid():
+            # Create an instance of the Blog model and populate it with form data
+            puisi = Puisi(
+                penulis=form.cleaned_data['penulis'],
+                judul=form.cleaned_data['judul'],
+                isi=form.cleaned_data['isi'],
+            )
+            puisi.save()  # Save the instance to the database
+
+            # Redirect to a success page or another appropriate page
+            return redirect('/puisi')
+    else:
+        form = PuisiForm(initial={'penulis': default_penulis})
+    form = PuisiForm()
+    form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
+    form.fields['isi'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
+    form.fields['penulis'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'value': default_penulis})
+    puisiAll = Puisi.objects.all()
+
+    context = {'form': form, 'username': user.username, 'puisiAll': puisiAll}
+    return render(request, 'users/puisi.html', context)
+
+
+def blog_detail(request, blog_id):
+    blog = get_object_or_404(Blog, pk=blog_id)
+    blog.isi = markdown.markdown(blog.isi)
+    return render(request, 'detail/blog-detail.html', {'blog': blog})
+
+def puisi_detail(request, puisi_id):
+    puisi = get_object_or_404(Puisi, pk=puisi_id)
+    puisi.isi = markdown.markdown(puisi.isi)
+    return render(request, 'detail/puisi-detail.html', {'puisi': puisi})
+    

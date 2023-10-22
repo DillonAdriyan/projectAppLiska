@@ -90,3 +90,12 @@ class Blog(models.Model):
     tanggal_upload = models.DateTimeField(auto_now_add=True)
     def __str__(self):
      return self.judul
+
+class Puisi(models.Model):
+    id = models.AutoField(primary_key=True)
+    judul = models.CharField(max_length=255)
+    isi = models.TextField()
+    penulis = models.CharField(max_length=255)
+    tanggal_upload = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+     return self.judul

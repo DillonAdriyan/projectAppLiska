@@ -1,10 +1,11 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/typograph.css' %}" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -80,6 +81,18 @@
        </li>
        <li><a>Settings</a></li>
        <li><a>Logout</a></li>
+       <li class="flex ml-4 mt-2 mb-2 lg:mt-0 items-center">
+        <div class="flex">
+         <span class=" mr-2 text-sm text-accent-content">Light</span>
+         <input type="checkbox" class="hidden" id="dark-toggle" />
+         <label for="dark-toggle">
+          <div class="flex h-5 w-9 cursor-pointer items-center rounded-full bg-dark p-1">
+           <div class="toggle-circle h-4 w-4 rounded-full bg-white dark:bg-base-200 transition duration-500 ease-in-out"></div>
+          </div>
+         </label>
+         <span class="ml-2 text-sm text-accent-content">Dark</span>
+        </div>
+       </li>
       </ul>
      </div>
     </div>
@@ -89,5 +102,6 @@
 
   {% block content %}
   {% endblock %}
+  <script src="{% static 'js/script.js' %}"></script>
    </body>
 </html>

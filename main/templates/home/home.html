@@ -333,7 +333,7 @@
        </div>
        <div class="-mt-2">
         <h2 id="user" class="text-sm text-accent-content dark:text-accent-content font-bold inline-block">
-         {{ blog.nama_pengguna }}
+         {{ blog.nama_pengguna|title }}
         </h2>
         <h3 id="date" class="text-xs font-semibold text-gray-600">
          {{ blog.tanggal_upload }}
@@ -347,10 +347,10 @@
         src="https://source.unsplash.com/360x200?natural"
         alt="Blog"
        />
-       <h2 class="pl-4 font-bold text-accent-content dark:text-accent-content text-2xl pt-3">{{ blog.judul }}</h2>
+       <h2 class="pl-4 font-bold text-accent-content dark:text-accent-content text-2xl pt-3">{{ blog.judul|upper }}</h2>
        <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">
         Ditulis oleh:
-        <span class="text-primary"> {{ blog.nama_pengguna }}</span>
+        <span class="text-primary"> {{ blog.nama_pengguna|title }}</span>
        </h3>
 
        <p class="font-semibold text-base-content text-sm pl-4">
@@ -526,6 +526,4 @@
    </nav>
   </footer>
 
-  <script src="script.js"></script>
-  <script type="text/javascript"></script>
  {% endblock %}
