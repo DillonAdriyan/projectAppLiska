@@ -10,5 +10,5 @@ urlpatterns = [
     path("berita/", views.BeritaDashboard.as_view, name="berita"),
     path("blog/", views.blog, name="blog"),
     path("cerita/", views.CerpenDashboard.as_view, name="cerita"),
-    path('login/', views.CustomLoginView.as_view(), name='login'),
+    path('login/', views.login_view, name='login'),
 ]

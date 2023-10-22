@@ -63,12 +63,10 @@ def BuatBlog(request):
 # 
 def home(request):
  # Get the current user's data
- user = request.user
 
  # Combine the first name and last name into a single string for the "penulis" field
- pengguna = f"{user.first_name} {user.last_name}"
  blogs = Blog.objects.all()
- context = { 'blogs': blogs, 'pengguna': pengguna}
+ context = { 'blogs': blogs}
  return render(request, "home/home.html", context)
 
 
@@ -128,8 +126,10 @@ def login_view(request):
             request.session['username'] = user.username
             return redirect('dashboard')
         else:
-            return "Username atau Password salah"
-    return render(request, 'registration/login.html')
+         error_message = "Username atau Password Salah !"
+    else:
+     error_message = None
+    return render(request, 'registration/login.html', {'error_message': error_message})
 
 
 
