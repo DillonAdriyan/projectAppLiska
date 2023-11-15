@@ -21,5 +21,15 @@ Project Untuk membuat aplikasi berbasis website, untuk saranana literasi siswa
 - Admin
 - User
 - Anonymous User
+## 🖥️ Bahasa dan Framework 
+### Frontend
+- HTML
+- CSS
+  - [Tailwindcss](https://tailwindcss.com)
+  - Plugin : [daisyUi](https://daisyui.com)
+- JAVASCRIPT
+### Backend 
+- PYTHON
+  - [Django](https://www.djangoproject.com/)
 ## Developer
 - Dillon Adriyan 
