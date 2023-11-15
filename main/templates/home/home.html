@@ -21,6 +21,15 @@
       <p class="text-start text-base-content font-medium text-sm md:text-md">
        mari bersama berbagi cerita dan ilmu yang bermanfaat.
       </p>
+      {% if user.is_authenticated %}
+         <a href="{% url 'dashboard' %}">
+       <button
+        class="py-2 px-8 mt-6 rounded-full bg-primary text-center text-primary-content font-semibold"
+       >
+        Dashboard
+       </button>
+      </a>
+      {% else %}
       <a href="{% url 'login' %}">
        <button
         class="py-2 px-8 mt-6 rounded-full bg-primary text-center text-primary-content font-semibold"
@@ -28,6 +37,7 @@
         MULAI
        </button>
       </a>
+      {% endif %}
      </div>
      <div class="w-full md:w-1/2 mt-8">
       <img
@@ -329,14 +339,16 @@
         id="gambar"
         class="w-10 h-10 rounded-full bg-primary mb-2 mr-2 overflow-hidden"
        >
-        <img src="dist/img/1.png" alt="" height="80" />
+        <img src="{{ blog.user.profilesiswa.profile_picture.url }}" alt="" height="80" />
        </div>
        <div class="-mt-2">
         <h2 id="user" class="text-sm text-accent-content dark:text-accent-content font-bold inline-block">
-         {{ blog.nama_pengguna|title }}
+ {{ blog.user.first_name|title }} {{ blog.user.last_name|title }}
         </h2>
         <h3 id="date" class="text-xs font-semibold text-gray-600">
-         {{ blog.tanggal_upload }}
+{{ blog.tgl_dibuat|date:"d F Y" }}
+
+
         </h3>
        </div>
       </div>
@@ -344,13 +356,14 @@
       <div class="w-full pb-6 rounded-xl shadow-md bg-white dark:bg-base-200 overflow-hidden">
        <img
         class="mx-auto w-full max-h-[100px] object-cover my-auto"
-        src="https://source.unsplash.com/360x200?natural"
+        src="{{ blog.gambar.url }}"
         alt="Blog"
        />
        <h2 class="pl-4 font-bold text-accent-content dark:text-accent-content text-2xl pt-3">{{ blog.judul|upper }}</h2>
        <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">
         Ditulis oleh:
-        <span class="text-primary"> {{ blog.nama_pengguna|title }}</span>
+        <span class="text-primary"> {{ blog.user.first_name|title }} {{ blog.user.last_name|title }}
+</span>
        </h3>
 
        <p class="font-semibold text-base-content text-sm pl-4">

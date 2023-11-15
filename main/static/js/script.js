@@ -64,26 +64,27 @@ function activeLink() {
 }
 list.forEach((item) => item.addEventListener("click", activeLink));
 
-
-// dark mode
 const darkToggle = document.querySelector('#dark-toggle');
 const html = document.querySelector('html');
 
-// dark mode
-darkToggle.addEventListener("click", function() {
+darkToggle.addEventListener("change", function() {
   if(darkToggle.checked) {
     html.setAttribute('data-theme', 'dark');
-    localStorage.theme = 'dark';
+    localStorage.setItem('theme', 'dark');
   } else {
     html.setAttribute('data-theme', 'light');
-    localStorage.theme = 'light';
+    localStorage.setItem('theme', 'light');
   }
 });
 
-// pindahkan toggle sesuai mode
-if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
- 
-  darkToggle.checked = true;
-} else {
-  darkToggle.checked = false;
+function setThemeFromLocalStorage() {
+  if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    html.setAttribute('data-theme', 'dark');
+    darkToggle.checked = true;
+  } else {
+    html.setAttribute('data-theme', 'light');
+    darkToggle.checked = false;
+  }
 }
+
+setThemeFromLocalStorage();

@@ -39,7 +39,7 @@ SECRET_KEY = 'django-insecure-uj(6k!5e)_r4j6r##42vd)#*)u!jnpd+*eb8pv*=4njn@^ideb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok-free.app']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '.ngrok-free.app']
 
 
 # Application definition
@@ -69,9 +69,7 @@ ROOT_URLCONF = 'eLiska.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        "DIRS": [
-            BASE_DIR / "templates/",
-        ],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

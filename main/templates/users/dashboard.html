@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
 {% block content %} 
+<!-- Tambahkan script jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success absolute top-0 mt-2 successMessage">
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z"/></svg>
+        <span>{{ message|title }}</span>
+    </div>
+  {% endfor %}
+  <script>
+    // Hapus pesan setelah tampil sekali
+    setTimeout(function() {
+        $('.successMessage').fadeOut('slow');
+    }, 2000); // Menghilangkan pesan setelah 2 detik
+  </script>
+{% endif %}
+
+
+
+
   <!-- end header section  -->
     <section id="hello mt-4">
    <div class="container">

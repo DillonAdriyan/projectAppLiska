@@ -52,8 +52,13 @@ class ProfileSiswa(models.Model):
         return self.user.username
         
 
+
+class Kategori(models.Model):
+ nama = models.CharField(max_length=64)
+ def __str__(self):
+  return self.nama
+
 class Berita(models.Model):
-    id = models.AutoField(primary_key=True)
     judul = models.CharField(max_length=255)
     isi_berita = models.TextField()
     jenis_berita = models.CharField(max_length=100)
@@ -64,16 +69,14 @@ class Berita(models.Model):
      return self.judul
 
 class CeritaPendek(models.Model):
-    id = models.AutoField(primary_key=True)
     judul = models.CharField(max_length=255)
-    isi_cerita = models.TextField()
+    isi = models.TextField()
     pengguna = models.CharField(max_length=255)
     tanggal_upload = models.DateTimeField(auto_now_add=True)
     def __str__(self):
      return self.judul
 
 class Buku(models.Model):
-    id = models.AutoField(primary_key=True)
     judul = models.CharField(max_length=255)
     sinopsis = models.TextField()
     penulis = models.CharField(max_length=255)
@@ -83,18 +86,28 @@ class Buku(models.Model):
      return self.judul
 
 class Blog(models.Model):
-    id = models.AutoField(primary_key=True)
     judul = models.CharField(max_length=255)
     isi = models.TextField()
-    nama_pengguna = models.CharField(max_length=255)
-    tanggal_upload = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tgl_dibuat = models.DateTimeField(auto_now_add=True)
+    terakhir_diubah = models.DateTimeField(auto_now=True)
+    gambar = models.ImageField(upload_to='blog_banners/')
+    kategori = models.ForeignKey(Kategori, on_delete=models.CASCADE)
     def __str__(self):
      return self.judul
 
+
+class Comment_Blog(models.Model):
+ pengguna = models.CharField(max_length=256)
+ isi = models.TextField()
+ tgl_dibuat = models.DateTimeField(auto_now_add=True)
+ blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+
+
 class Puisi(models.Model):
-    id = models.AutoField(primary_key=True)
     judul = models.CharField(max_length=255)
     isi = models.TextField()
+    tema = models.CharField(max_length=64)
     penulis = models.CharField(max_length=255)
     tanggal_upload = models.DateTimeField(auto_now_add=True)
     def __str__(self):

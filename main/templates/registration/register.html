@@ -60,6 +60,7 @@
           <button class="btn btn-primary">Login</button>
         </div>
       </form>
+      <p class="text-center text-sm" style="padding-bottom: 16px;">Sudah Punya akun? <a class="text-primary font-bold" href="{% url 'login' %}">Login</a></p>
     </div>
   </div>
 </div>
@@ -79,10 +80,10 @@
  })
  showPw2.addEventListener('click', function(){
   if (inputPw2.type == "password") {
-  inputPw.type = "text"
+  inputPw2.type = "text"
    
   } else {
-   inputPw.type = "password"
+   inputPw2.type = "password"
   }
  })
 </script>

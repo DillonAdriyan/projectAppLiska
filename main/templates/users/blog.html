@@ -97,12 +97,14 @@
    <div class="w-full h-1 bg-primary rounded-full mb-8"></div>
   <form method="POST" enctype="multipart/form-data">
    {% csrf_token %}
+   <h1 class="text-xl font-bold mt-4 ml-2">BANNER</h1>
+   {{ form.gambar }}
    <h1 class="text-xl font-bold mt-4 ml-2">JUDUL</h1>
    {{ form.judul }}
    <h1 class="text-xl font-bold mt-4 ml-2">DESKRIPSI</h1>
    {{ form.isi }}
-   <h1 class="text-xl font-bold mt-4 ml-2">Penulis</h1>
-   {{ form.nama_pengguna }}
+   <!--h1 class="text-xl font-bold mt-4 ml-2">Penulis</h1-->
+   {{ form.user }}
    <input type="submit" class="btn btn-primary mt-2" value="kirim">
   </form>
   </div> 
