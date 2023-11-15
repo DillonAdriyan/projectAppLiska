@@ -1,16 +1,16 @@
 # projectAppLiska
 Project Untuk membuat aplikasi berbasis website, untuk saranana literasi siswa
-# 🔗 Isi
+## 🔗 Isi
 - Blog
 - Cerita
 - Berita
 - Puisi
 - Buku
-# 🌟 Fitur
+## 🌟 Fitur
 - Login
 - Register
 - Dasboard
-# 👤 Akses
+## 👤 Akses
 - Admin
 - User
 - Anonymous User
