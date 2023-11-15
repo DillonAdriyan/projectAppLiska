@@ -1,17 +1,18 @@
 # ProjectAppLiska
 Project Untuk membuat aplikasi berbasis website, untuk saranana literasi siswa
 ## 🔗 Isi
-- Blog
+- ### Blog
+  
   - Banner
   - Judul
   - Isi
   - Nama Pengguna
   - Tanggal dibuat
   - Reaction dari user lain
-- Cerita
-- Berita
-- Puisi
-- Buku
+- ### Cerita
+- ### Berita
+- ### Puisi
+- ### Buku
 ## 🌟 Fitur
 - Login
 - Register
