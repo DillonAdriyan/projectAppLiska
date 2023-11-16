@@ -32,4 +32,8 @@ Project Untuk membuat aplikasi berbasis website, untuk saranana literasi siswa
 - PYTHON
   - [Django](https://www.djangoproject.com/)
 ## Developer
+<<<<<<< HEAD
 - Dillon Adriyan 
+=======
+- Dillon Adriyan 
+>>>>>>> 2e1bea5b6d312583885838acf4bc7a1acd598475
