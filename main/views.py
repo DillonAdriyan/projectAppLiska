@@ -143,7 +143,7 @@ def blog(request):
     default_penulis = f"{user.first_name} {user.last_name}"
 
     if request.method == 'POST':
-        form = BlogForm(request.POST)
+        form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
             blog = form.save(commit=False)
             blog.user = user
@@ -154,8 +154,9 @@ def blog(request):
 
     form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
     form.fields['isi'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
-    form.fields['user'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom hidden', 'value': default_penulis})
+    form.fields['user'].widget.attrs.update({'class': 'input input-primary w-full mt-2 input-bordered', 'value': default_penulis})
     form.fields['gambar'].widget.attrs.update({'class': 'file-input file-input-bordered file-input-primary w-full mt-2'})
+    form.fields['kategori'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2'})
 
     blogs = Blog.objects.all()
 

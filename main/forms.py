@@ -22,7 +22,7 @@ class BukuForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['judul', 'isi', 'user', 'gambar']
+        fields = ['judul', 'isi', 'user', 'gambar', 'kategori']
         widgets = {
             'isi': forms.Textarea(attrs={'class': 'markdown-editor'}),
         }
