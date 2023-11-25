@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from .forms import RegistrationForm, BukuForm, BlogForm, CerPenForm, BeritaForm, PuisiForm
+from .forms import RegistrationForm, BukuForm, BlogForm, CerPenForm, BeritaForm, PuisiForm, CustomRegistrationForm
 # views.py
 from django.views.generic.edit import CreateView
 from .models import Buku, Blog, CeritaPendek, Berita, Puisi
@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.http import HttpResponseRedirect
 import markdown
+import markdown2
 from django.contrib.auth import logout
 from django.contrib import messages
 
@@ -55,7 +56,9 @@ def home(request):
  context = { 'blogs': blogs}
  return render(request, "home/home.html", context)
 
-
+def base_nav(request):
+ user = request.user
+ 
 class DashboardBase(LoginRequiredMixin, View):
     template_name = "users/dashboard.html"  # Template dasar untuk dasbor
 
@@ -64,6 +67,16 @@ class DashboardBase(LoginRequiredMixin, View):
         context = {'username': username}
         return render(request, self.template_name, context)
 
+def register_user(request):
+    if request.method == 'POST':
+        form = CustomRegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            # Di sini Anda dapat menambahkan logika tambahan setelah pendaftaran berhasil
+            return redirect('dashboard')  # Ganti 'nama_halaman_sukses' dengan nama halaman sukses yang diinginkan
+    else:
+        form = CustomRegistrationForm()
+    return render(request, 'registration/regist_user.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
@@ -159,7 +172,7 @@ def blog(request):
     form.fields['kategori'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2'})
 
     blogs = Blog.objects.all()
-
+    
     context = {'form': form, 'username': user.username, 'blogs': blogs}
     return render(request, 'users/blog.html', context)
 
@@ -290,12 +303,35 @@ def cerita(request):
 
     context = {'form': form, 'username': user.username, 'ceritas': ceritas}
     return render(request, 'users/cerita.html', context)
+    
 
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
 
 def blog_detail(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
-    blog.isi = markdown.markdown(blog.isi)
+
+    def highlight_code(code):
+        lexer = get_lexer_by_name('python', stripall=True)
+        formatter = HtmlFormatter(style='monokai', noclasses=True, wrap=True, linenos=True)
+        return highlight(code, lexer, formatter)
+
+    def handle_code_blocks(text):
+        parts = text.split('```')
+        for i in range(1, len(parts), 2):
+            parts[i] = highlight_code(parts[i])
+        return '```'.join(parts)
+
+    blog.isi = markdown2.markdown(handle_code_blocks(blog.isi))
+
     return render(request, 'detail/blog-detail.html', {'blog': blog})
+    
+
+
+
+
+
 
 def puisi_detail(request, puisi_id):
     puisi = get_object_or_404(Puisi, pk=puisi_id)

@@ -39,9 +39,13 @@ SECRET_KEY = 'django-insecure-uj(6k!5e)_r4j6r##42vd)#*)u!jnpd+*eb8pv*=4njn@^ideb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '.ngrok-free.app']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '.ngrok-free.app', '192.168.26.160', '10.0.0.39']
 
+COMPRESS_ROOT = BASE_DIR / 'main/static'
 
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 # Application definition
 
 INSTALLED_APPS = [
@@ -52,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +142,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+# sessions atur
+SESSION_COOKIE_AGE = 400  # Contoh: sesi kedaluwarsa dalam 1 jam (dalam detik)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

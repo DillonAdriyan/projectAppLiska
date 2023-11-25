@@ -4,7 +4,16 @@ from django.contrib import admin
 # from django.utils.html import format_html
 # from .forms import RegistrationForm
 from .models import ProfileSiswa, Blog, Kategori
+from django.contrib.auth.admin import UserAdmin
+from .models import CustomUser, UserProfile
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
 
+class CustomUserAdmin(UserAdmin):
+    inlines = [UserProfileInline]
+
+
+admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(ProfileSiswa)
 admin.site.register(Blog)
 admin.site.register(Kategori)

@@ -1,10 +1,13 @@
+{% load compress %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  {% compress css %}
+  <link href="{% static 'css/output.css' %}" rel="stylesheet" />
+  {% endcompress %}
   <link href="{% static 'css/typograph.css' %}" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <script src="https://kit.fontawesome.com/f21ac27679.js" crossorigin="anonymous"></script>
@@ -13,6 +16,17 @@
    href="https://fonts.googleapis.com/css2?family=Arizonia&family=Dancing+Script:wght@400;600;700&family=Gloock&family=Gloria+Hallelujah&family=Great+Vibes&family=Inter:wght@400;500&family=Italianno&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@500;600;700&family=Pinyon+Script&family=Playfair+Display:wght@400;500;600&family=Roboto+Mono&display=swap"
    rel="stylesheet"
   />
+  <style>
+        /* CSS style for Monokai theme */
+        .highlight .hll { background-color: #49483E; }
+        .highlight  { background: #272822; }
+        .highlight .c { color: #75715E; font-style: italic; } /* Comment */
+        .highlight .err { color: #960050; background-color: #1E0010; } /* Error */
+        /* ... (and so on for the rest of the Pygments styles) */
+    </style>
+
+
+  
   <title>e-Liska</title>
  </head>
  <body>

@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth.models import User, Group, Permission, AbstractUser
 
 # class CustomUser(AbstractUser):
 #     groups = models.ManyToManyField(Group, through='GroupSiswa', related_name='custom_users_groups')
@@ -37,6 +38,59 @@ from django.contrib.auth.models import User
     # Tambahkan bidang-bidang kustom lainnya sesuai kebutuhan (misalnya, tanggal lahir, dll.)
 
 
+
+# Create your models here.
+
+class CustomUser(AbstractUser):
+    # Tambahkan metode atau bidang khusus di sini jika dibutuhkanfirst
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    groups = models.ManyToManyField(Group, related_name='custom_user_group')
+    user_permissions = models.ManyToManyField(
+        Permission, related_name='custom_user_permission'
+    )
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        CustomUser,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    photo_profile = models.ImageField(
+        verbose_name='photo profile',
+        upload_to='avatars',
+        null=True,
+        blank=True
+    )
+    TYPER_USER_CHOICES = (
+        (1, 'Siswa'),
+        (2, 'Guru'),
+        (3, 'CEO'),
+        (4, 'Developer'),
+        (5, 'admin'),
+    )
+
+    KELAS_CHOICES = (
+        (1, 'X'),
+        (2, 'XI'),
+        (3, 'XII'),
+    )
+
+    JURUSAN_CHOICES = (
+        (1, 'AKL'),
+        (2, 'APHP'),
+        (3, 'TBSM'),
+        (4, 'TJKT'),
+        (5, 'TKRO'),
+        (6, 'TP'),
+    )
+
+    # Definisikan field lainnya di sini
+
+    typer_user = models.PositiveSmallIntegerField(choices=TYPER_USER_CHOICES, null=True)
+    kelas = models.PositiveSmallIntegerField(choices=KELAS_CHOICES, null=True)
+    jurusan = models.PositiveSmallIntegerField(choices=JURUSAN_CHOICES, null=True)
+    tanggal_lahir = models.DateField(null=True, blank=True)
 
 
 class ProfileSiswa(models.Model):
