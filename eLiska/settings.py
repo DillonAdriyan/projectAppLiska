@@ -48,6 +48,9 @@ COMPRESS_ENABLED = True
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 # Application definition
 
+AUTH_USER_MODEL = 'main.CustomUser'  # Ganti dengan nama app dan model yang benar
+
+
 INSTALLED_APPS = [
     'main',
     'django.contrib.admin',
@@ -82,6 +85,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.photo_profile',
                 
             ],
         },

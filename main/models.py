@@ -52,13 +52,12 @@ class CustomUser(AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(
-        CustomUser,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         primary_key=True,
     )
     photo_profile = models.ImageField(
-        verbose_name='photo profile',
-        upload_to='avatars',
+        upload_to='avatars/',
         null=True,
         blank=True
     )
@@ -94,7 +93,7 @@ class UserProfile(models.Model):
 
 
 class ProfileSiswa(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     email = models.EmailField(max_length=255)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -142,7 +141,7 @@ class Buku(models.Model):
 class Blog(models.Model):
     judul = models.CharField(max_length=255)
     isi = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tgl_dibuat = models.DateTimeField(auto_now_add=True)
     terakhir_diubah = models.DateTimeField(auto_now=True)
     gambar = models.ImageField(upload_to='blog_banners/')

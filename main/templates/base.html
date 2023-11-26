@@ -74,7 +74,11 @@
      <div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
        <div class="w-10 rounded-full bg-primary ">
-       <img src="{% static 'img/1.png' %}" alt="">
+        {% if photo_profile %}
+        <img src="{{ photo_profile.url }}" alt="Profile Picture">
+    {% else %}
+        <p>No profile picture available</p>
+    {% endif %}
        </div>
       </label>
       <ul
@@ -234,7 +238,7 @@
          >
           <span class="absolute -inset-1.5"></span>
           <span class="sr-only">Open user menu</span>
-          <img class="h-8 w-8 rounded-full" src="dist/img/1.png" alt="" />
+          <img class="h-8 w-8 rounded-full" src="{% static 'img/person.svg' %}" alt="" />
          </button>
         </div>
 
@@ -262,7 +266,17 @@
           role="menuitem"
           tabindex="-1"
           id="user-menu-item-2"
-          >Login</a
+          >
+          Login</a
+         >
+         <a
+          href="{% url 'register' %}"
+          class="block px-4 py-2 text-sm text-accent-content"
+          role="menuitem"
+          tabindex="-1"
+          id="user-menu-item-2"
+          >
+          Daftar</a
          >
                    <li class="flex ml-4 mt-2 mb-2 lg:mt-0 items-center">
         <div class="flex">

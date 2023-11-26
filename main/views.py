@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .forms import RegistrationForm, BukuForm, BlogForm, CerPenForm, BeritaForm, PuisiForm, CustomRegistrationForm
 # views.py
 from django.views.generic.edit import CreateView
-from .models import Buku, Blog, CeritaPendek, Berita, Puisi
+from .models import Buku, Blog, CeritaPendek, Berita, Puisi, UserProfile
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
@@ -67,16 +67,35 @@ class DashboardBase(LoginRequiredMixin, View):
         context = {'username': username}
         return render(request, self.template_name, context)
 
+
 def register_user(request):
     if request.method == 'POST':
         form = CustomRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
-            # Di sini Anda dapat menambahkan logika tambahan setelah pendaftaran berhasil
-            return redirect('dashboard')  # Ganti 'nama_halaman_sukses' dengan nama halaman sukses yang diinginkan
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+
+            # Periksa apakah UserProfile sudah ada
+            user_profile, created = UserProfile.objects.get_or_create(user=user)
+            if created:
+                user_profile.photo_profile = form.cleaned_data['photo_profile']
+                user_profile.typer_user = form.cleaned_data['typer_user']
+                user_profile.kelas = form.cleaned_data['kelas']
+                user_profile.jurusan = form.cleaned_data['jurusan']
+                user_profile.save()
+
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    print(request, f"Error in {field}: {error}")
     else:
         form = CustomRegistrationForm()
     return render(request, 'registration/regist_user.html', {'form': form})
+
+
 
 def register(request):
     if request.method == 'POST':
@@ -105,6 +124,7 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -114,9 +134,12 @@ def login_view(request):
         else:
             messages.error(request, 'Username atau Password Salah !')
             return render(request, 'registration/login.html')
+    
     if request.user.is_authenticated:
-     return redirect('dashboard')
+        return redirect('dashboard')
+    
     return render(request, 'registration/login.html')
+
 
 
 
@@ -153,21 +176,20 @@ class CustomLoginView(LoginView):
 @login_required
 def blog(request):
     user = request.user
-    default_penulis = f"{user.first_name} {user.last_name}"
-
     if request.method == 'POST':
-        form = BlogForm(request.POST, request.FILES)
+        form = BlogForm(request.POST, request.FILES, user=user)
         if form.is_valid():
-            blog = form.save(commit=False)
-            blog.user = user
-            blog.save()
+            form.save()
             return redirect('blog')
+        else:
+         for field, errors in form.errors.items():
+                for error in errors:
+                    print(request, f"Error in {field}: {error}")
     else:
-        form = BlogForm(initial={'user': default_penulis})
+        form = BlogForm(user=user)
 
     form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
     form.fields['isi'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
-    form.fields['user'].widget.attrs.update({'class': 'input input-primary w-full mt-2 input-bordered', 'value': default_penulis})
     form.fields['gambar'].widget.attrs.update({'class': 'file-input file-input-bordered file-input-primary w-full mt-2'})
     form.fields['kategori'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2'})
 
@@ -175,6 +197,7 @@ def blog(request):
     
     context = {'form': form, 'username': user.username, 'blogs': blogs}
     return render(request, 'users/blog.html', context)
+
 
 
 def puisi(request):

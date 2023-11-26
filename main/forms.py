@@ -6,7 +6,8 @@ from .models import Buku, Blog, CeritaPendek, Berita, Puisi, CustomUser, UserPro
 
 
 class CustomRegistrationForm(forms.ModelForm):
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))  # Tambahkan field konfirmasi password
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'pw1'}))  # Tambahkan field konfirmasi password
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'pw2'}))  # Tambahkan field konfirmasi password
 
     class Meta:
         model = CustomUser
@@ -16,18 +17,22 @@ class CustomRegistrationForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # Menambahkan kelas CSS ke dalam widget untuk setiap field
-        self.fields['username'].widget.attrs['class'] = 'form-control'
-        self.fields['email'].widget.attrs['class'] = 'form-control'
-        self.fields['password'].widget.attrs['class'] = 'form-control'
-        self.fields['password2'].widget.attrs['class'] = 'form-control'
-        self.fields['first_name'].widget.attrs['class'] = 'form-control'
-        self.fields['last_name'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['class'] = 'input input-bordered input-primary w-full'
+        self.fields['email'].widget.attrs['class'] = 'input input-bordered input-primary w-full'
+        self.fields['password'].widget.attrs['class'] = 'input input-bordered input-primary w-full'
+        self.fields['password2'].widget.attrs['class'] = 'input input-bordered input-primary w-full'
+        self.fields['first_name'].widget.attrs['class'] = 'input input-bordered input-primary w-full'
+        self.fields['last_name'].widget.attrs['class'] = 'input input-bordered input-primary w-full'
 
         # Menggunakan ChoiceField untuk field yang ingin ditampilkan sebagai pilihan
-        self.fields['typer_user'] = forms.ChoiceField(choices=UserProfile.TYPER_USER_CHOICES, required=False, widget=forms.Select(attrs={'class': 'form-control'}))
-        self.fields['kelas'] = forms.ChoiceField(choices=UserProfile.KELAS_CHOICES, required=False, widget=forms.Select(attrs={'class': 'form-control'}))
-        self.fields['jurusan'] = forms.ChoiceField(choices=UserProfile.JURUSAN_CHOICES, required=False, widget=forms.Select(attrs={'class': 'form-control'}))
-        self.fields['photo_profile'] = forms.ClearableFileInput(attrs={'class': 'form-control'})
+        self.fields['typer_user'] = forms.ChoiceField(choices=UserProfile.TYPER_USER_CHOICES, required=False, widget=forms.Select(attrs={'class': 'select select-primary w-full'}))
+        self.fields['kelas'] = forms.ChoiceField(choices=UserProfile.KELAS_CHOICES, required=False, widget=forms.Select(attrs={'class': 'select select-primary w-full'}))
+        self.fields['jurusan'] = forms.ChoiceField(choices=UserProfile.JURUSAN_CHOICES, required=False, widget=forms.Select(attrs={'class': 'select select-primary w-full'}))
+        self.fields['photo_profile'] = forms.ImageField(
+            label='Photo Profile',  # Sesuaikan dengan label yang diinginkan
+            required=False,  # Sesuaikan dengan kebutuhan Anda
+            widget=forms.FileInput(attrs={'class': 'file-input file-input-bordered input-primary w-full'})
+        )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -36,20 +41,21 @@ class CustomRegistrationForm(forms.ModelForm):
         if password and password2 and password != password2:
             raise forms.ValidationError("Password dan konfirmasi password tidak cocok")
         return cleaned_data
-
+        
     def save(self, commit=True):
         user = super().save(commit=False)
-        if 'password' in self.changed_data:  # Cek apakah password telah diubah
-            user.set_password(self.cleaned_data["password"])
+        user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
-            user_profile = UserProfile.objects.get_or_create(user=user)[0]
-            user_profile.typer_user = self.cleaned_data.get('typer_user')
-            user_profile.kelas = self.cleaned_data.get('kelas')
-            user_profile.jurusan = self.cleaned_data.get('jurusan')
-            user_profile.photo_profile = self.cleaned_data.get('photo_profile')
-            user_profile.save()
+            user_profile, created = UserProfile.objects.get_or_create(user=user)
+            if created:
+                user_profile.photo_profile = self.cleaned_data['photo_profile']
+                user_profile.typer_user = self.cleaned_data['typer_user']
+                user_profile.kelas = self.cleaned_data['kelas']
+                user_profile.jurusan = self.cleaned_data['jurusan']
+                user_profile.save()
         return user
+
 
 
 class RegistrationForm(UserCreationForm):
@@ -71,10 +77,26 @@ class BukuForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['judul', 'isi', 'user', 'gambar', 'kategori']
+        fields = ['judul', 'isi', 'gambar', 'kategori', 'user']
         widgets = {
             'isi': forms.Textarea(attrs={'class': 'markdown-editor'}),
+            'user': forms.HiddenInput(),
         }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if self.user:
+            self.fields['user'].initial = self.user
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if not instance.user_id:
+            instance.user = self.user
+        if commit:
+            instance.save()
+        return instance
+
         
 # puisi form
 class PuisiForm(forms.ModelForm):

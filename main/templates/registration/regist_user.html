@@ -1,67 +1,82 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<form class="card-body mt-24 flex flex-col gap-4" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div class="w-full">
-    <label class="label">
-      <span class="label-text">Foto Profil</span>
-    </label>
-    {{ form.photo_profile }}
-  </div>
-  
-  <div class="flex justify-content-between">
-    <div class="w-1/2">
-      <label class="label">
-        <span class="label-text">Username</span>
-      </label>
+
+<div class=" mt-24">
+ <h1 class="text-4xl font-bold text-center">Daftar</h1>
+  <form class="max-w-md mx-auto card p-8 space-y-4" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div>
+      <label for="photo_profile" class="text-base">Photo Profil</label>
+      {{ form.photo_profile }}
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="first_name" class="text-sm text-base">Nama Depan</label>
+        {{ form.first_name }}
+      </div>
+      <div>
+        <label for="last_name" class="text-sm text-base">Nama Belakang</label>
+        {{ form.last_name }}
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="kelas" class="text-sm text-base">Kelas</label>
+        {{ form.kelas }}
+      </div>
+      <div>
+        <label for="jurusan" class="text-sm text-base">Jurusan</label>
+        {{ form.jurusan }}
+      </div>
+    </div>
+    
+    <div>
+      <label for="username" class="text-base">Username</label>
       {{ form.username }}
     </div>
-  </div>
-  
-  <div class="flex gap-4">
-    <div class="w-1/2">
-      <label class="label">
-        <span class="label-text">Email</span>
-      </label>
+    <div>
+      <label for="email" class="text-base">Email</label>
       {{ form.email }}
     </div>
-  </div>
-  
-  <div class="flex gap-2">
-    <div class="w-1/2">
-      <label class="label">
-        <span class="label-text">Nama Depan</span>
-      </label>
-      {{ form.first_name }}
+    <div>
+      <label for="typer_user" class="text-base">Role</label>
+      {{ form.typer_user }}
     </div>
-    <div class="w-1/2">
-      <label class="label">
-        <span class="label-text">Nama Belakang</span>
-      </label>
-      {{ form.last_name }}
-    </div>
-  </div>
-  
-  <div class="flex gap-4">
-    <div class="w-1/2">
-      <label class="label">
-        <span class="label-text">Password</span>
-      </label>
-      {{ form.password }}
-    </div>
-    <div class="w-1/2">
-      <label class="label">
-        <span class="label-text">Konfirmasi Password</span>
-      </label>
-      {{ form.password2 }}
-    </div>
-  </div>
-  
+    
+<div class="grid grid-cols-2 gap-4">
   <div>
-    <button class="btn btn-primary">Login</button>
+    <label for="password" class="text-sm text-base">Password</label>
+    <div class="">
+      {{ form.password }}
+      <button type="button" id="show-pw1" class="absolute z-10 right-60 mr-2 mt-3" onclick="togglePassword('id_password')"><i class="fa-solid fa-eye"></i></button>
+    </div>
   </div>
-</form>
+  <div>
+    <label for="password2" class="text-sm text-base">Konfirmasi Password</label>
+    <div class="">
+      {{ form.password2 }}
+      <button type="button" id="show-pw2" class="absolute z-10 right-12 mt-3" onclick="togglePassword('id_password2')"><i class="fa-solid fa-eye"></i></button>
+    </div>
+  </div>
+</div>
 
 
+
+    
+    <div>
+      <button type="submit" class="btn btn-primary w-full">Daftar</button>
+    </div>
+  </form>
+</div>
+<script>
+function togglePassword(inputId) {
+    var passwordInput = document.getElementById(inputId);
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+    } else {
+        passwordInput.type = 'password';
+    }
+}
+</script>
 {% endblock %}
