@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from .forms import RegistrationForm, BukuForm, BlogForm, CerPenForm, BeritaForm, PuisiForm, CustomRegistrationForm
+from .forms import RegistrationForm, BukuForm, BlogForm, CerPenForm, BeritaForm, PuisiForm, CustomRegistrationForm, PostForm
 # views.py
 from django.views.generic.edit import CreateView
 from .models import Buku, Blog, CeritaPendek, Berita, Puisi, UserProfile
@@ -172,6 +172,71 @@ class CustomLoginView(LoginView):
     success_url = reverse_lazy('home')
     
 
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            # Sesuaikan penambahan informasi terkait postingan (contoh: author) sebelum disimpan
+            new_post.author = request.user  # Atur penulis postingan sesuai pengguna yang sedang login
+            new_post.save()
+            return redirect('dashboard')  # Ganti 'nama_url' dengan nama URL yang ingin Anda tuju setelah membuat postingan
+    else:
+        form = PostForm()
+    
+    return render(request, 'users/create_post.html', {'form': form})
+    
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    comments = Comment.objects.filter(post=post)
+    reaction_choices = Reaction.REACTION_CHOICES  # Mendapatkan pilihan reaksi dari model
+    
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.author = request.user  # Atur penulis komentar sesuai pengguna yang sedang login
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
+    return render(request, 'detail/post_detail.html', {
+        'post': post,
+        'comments': comments,
+        'comment_form': comment_form,
+        'reaction_choices': reaction_choices,
+    })
+
+from django.http import JsonResponse
+
+def add_reaction(request, post_id):
+    if request.method == 'POST' and request.is_ajax():
+        post = get_object_or_404(Post, id=post_id)
+        reaction_type = request.POST.get('reaction')  # Mendapatkan reaksi yang dipilih oleh pengguna
+
+        # Pastikan pengguna sudah login sebelum memberikan reaksi
+        if request.user.is_authenticated:
+            # Cek apakah pengguna sudah memberikan reaksi sebelumnya pada postingan ini
+            existing_reaction = Reaction.objects.filter(post=post, user=request.user).first()
+            
+            if existing_reaction:
+                # Jika sudah memberikan reaksi, perbarui reaksi pengguna
+                existing_reaction.reaction_type = reaction_type
+                existing_reaction.save()
+            else:
+                # Jika belum memberikan reaksi, buat reaksi baru
+                Reaction.objects.create(post=post, user=request.user, reaction_type=reaction_type)
+            
+            # Kirim respons JSON bahwa reaksi berhasil ditambahkan
+            return JsonResponse({'success': True, 'message': 'Reaction added successfully'})
+        else:
+            # Jika pengguna belum login, kirim respons JSON untuk meminta pengguna login
+            return JsonResponse({'success': False, 'message': 'Please login to add reaction'})
+    
+    # Jika bukan metode POST atau bukan permintaan Ajax, kirim respons JSON dengan error
+    return JsonResponse({'success': False, 'message': 'Invalid request'})
+    
 
 @login_required
 def blog(request):
@@ -328,34 +393,17 @@ def cerita(request):
     return render(request, 'users/cerita.html', context)
     
 
-from pygments import highlight
-from pygments.lexers import get_lexer_by_name
-from pygments.formatters import HtmlFormatter
+
+
+
+
+
 
 def blog_detail(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
-
-    def highlight_code(code):
-        lexer = get_lexer_by_name('python', stripall=True)
-        formatter = HtmlFormatter(style='monokai', noclasses=True, wrap=True, linenos=True)
-        return highlight(code, lexer, formatter)
-
-    def handle_code_blocks(text):
-        parts = text.split('```')
-        for i in range(1, len(parts), 2):
-            parts[i] = highlight_code(parts[i])
-        return '```'.join(parts)
-
-    blog.isi = markdown2.markdown(handle_code_blocks(blog.isi))
-
+    blog.isi = markdown.markdown(blog.isi)
     return render(request, 'detail/blog-detail.html', {'blog': blog})
     
-
-
-
-
-
-
 def puisi_detail(request, puisi_id):
     puisi = get_object_or_404(Puisi, pk=puisi_id)
     puisi.isi = markdown.markdown(puisi.isi)

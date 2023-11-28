@@ -53,6 +53,7 @@ AUTH_USER_MODEL = 'main.CustomUser'  # Ganti dengan nama app dan model yang bena
 
 INSTALLED_APPS = [
     'main',
+    'sapaska',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,7 +61,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
+    'allauth',
+    'allauth.account',
+    'rest_framework',
+    'crispy_forms',
+    'crispy_tailwind',
+    'taggit',
+    'ckeditor',
 ]
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'tailwind'
+CRISPY_TEMPLATE_PACK = 'tailwind'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'eLiska.urls'

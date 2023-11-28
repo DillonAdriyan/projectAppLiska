@@ -1,9 +1,19 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Buku, Blog, CeritaPendek, Berita, Puisi, CustomUser, UserProfile
+from .models import Buku, Blog, CeritaPendek, Berita, Puisi, CustomUser, UserProfile, Post
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
+class PostForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Create Post'))
 
+    class Meta:
+        model = Post
+        fields = ['title', 'content']  # Sesuaikan dengan field yang ingin Anda masukkan dalam formulir
 
 class CustomRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'pw1'}))  # Tambahkan field konfirmasi password
@@ -71,23 +81,23 @@ class RegistrationForm(UserCreationForm):
 class BukuForm(forms.ModelForm):
     class Meta:
         model = Buku
-        fields = ['judul', 'sinopsis', 'penulis', 'buku_pdf']
+        fields = ['judul', 'sinopsis', 'created_by', 'buku_pdf']
 
 
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['judul', 'isi', 'gambar', 'kategori', 'user']
+        fields = ['judul', 'isi', 'gambar', 'kategori', 'created_by']
         widgets = {
             'isi': forms.Textarea(attrs={'class': 'markdown-editor'}),
-            'user': forms.HiddenInput(),
+            'created_by': forms.HiddenInput(),
         }
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
+        self.user = kwargs.pop('created_by', None)
         super().__init__(*args, **kwargs)
         if self.user:
-            self.fields['user'].initial = self.user
+            self.fields['created_by'].initial = self.user
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -102,7 +112,7 @@ class BlogForm(forms.ModelForm):
 class PuisiForm(forms.ModelForm):
     class Meta:
         model = Puisi
-        fields = ['judul', 'isi', 'penulis']
+        fields = ['judul', 'isi', 'created_by']
         widgets = {
             'isi': forms.Textarea(attrs={'class': 'markdown-editor'}),
         }
@@ -113,10 +123,10 @@ class PuisiForm(forms.ModelForm):
 class CerPenForm(forms.ModelForm):
     class Meta:
         model = CeritaPendek
-        fields = ['judul', 'isi', 'pengguna' ]
+        fields = ['judul', 'isi', 'created_by' ]
 # form blog
 class BeritaForm(forms.ModelForm):
     class Meta:
         model = Berita
-        fields = ['judul', 'isi_berita', 'jenis_berita',   'ditulis_oleh', 'banner_berita']
+        fields = ['judul', 'isi_berita', 'jenis_berita',   'created_by', 'banner_berita']
 

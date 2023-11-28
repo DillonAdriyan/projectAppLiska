@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- create_post.html -->
+{% load crispy_forms_tags %}
+<div class="container mt-24">
+ 
+<form method="post">
+    {% csrf_token %}
+    {% crispy form %}
+</form>
+</div>
+
+{% endblock %}
