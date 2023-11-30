@@ -3,7 +3,7 @@ from django.contrib import admin
 # from django.contrib.auth.admin import UserAdmin
 # from django.utils.html import format_html
 # from .forms import RegistrationForm
-from .models import ProfileSiswa, Blog, Kategori
+from .models import ProfileSiswa, Blog, Kategori, Buku
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser, UserProfile, Post
 class UserProfileInline(admin.StackedInline):
@@ -16,6 +16,7 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(ProfileSiswa)
 admin.site.register(Blog)
+admin.site.register(Buku)
 admin.site.register(Post)
 admin.site.register(Kategori)
 #admin.site.register(UserSiswa)

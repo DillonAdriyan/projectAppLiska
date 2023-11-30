@@ -1,5 +1,4 @@
 from .models import UserProfile
-
 def photo_profile(request):
     photo = None
     if request.user.is_authenticated:

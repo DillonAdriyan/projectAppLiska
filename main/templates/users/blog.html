@@ -3,7 +3,7 @@
   <!-- end header section  -->
     <section id="hello mt-4">
    <div class="container">
-    <h1 class="font-bold text-4xl ml-2">Halo, {{ username }}</h1>
+    <h1 class="font-bold text-4xl ml-2">Halo, {{ user.first_name }}!</h1>
     <p class="ml-3 text-sm font-semibold text-primary">
      Bagaimana kabar anda hari ini?
     </p>
@@ -111,7 +111,7 @@
    {{ form.isi }}
    <h1 class="text-xl font-bold mt-4 ml-2">KATEGORI</h1>
    {{ form.kategori }}
-   {{ form.user }}
+   {{ form.created_by }}
    <input type="submit" class="btn btn-primary mt-2" value="kirim">
   </form>
   </div> 

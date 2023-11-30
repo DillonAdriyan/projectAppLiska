@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from .forms import RegistrationForm, BukuForm, BlogForm, CerPenForm, BeritaForm, PuisiForm, CustomRegistrationForm, PostForm
+from .forms import RegistrationForm, BukuForm, BlogForm, CeritaForm, BeritaForm, PuisiForm, CustomRegistrationForm, PostForm
 # views.py
 from django.views.generic.edit import CreateView
 from .models import Buku, Blog, CeritaPendek, Berita, Puisi, UserProfile
@@ -48,12 +48,11 @@ from django.contrib import messages
 #     template_name = 'users/berita.html'
 #     success_url = '/success/' 
 # 
-def home(request):
- # Get the current user's data
 
- # Combine the first name and last name into a single string for the "penulis" field
+def home(request):
+ bukus = Buku.objects.all()
  blogs = Blog.objects.all()
- context = { 'blogs': blogs}
+ context = { 'blogs': blogs, 'bukus': bukus}
  return render(request, "home/home.html", context)
 
 def base_nav(request):
@@ -90,7 +89,7 @@ def register_user(request):
         else:
             for field, errors in form.errors.items():
                 for error in errors:
-                    print(request, f"Error in {field}: {error}")
+                    messages.error(request, f"{field}: {error}")
     else:
         form = CustomRegistrationForm()
     return render(request, 'registration/regist_user.html', {'form': form})
@@ -238,6 +237,8 @@ def add_reaction(request, post_id):
     return JsonResponse({'success': False, 'message': 'Invalid request'})
     
 
+
+## views blog
 @login_required
 def blog(request):
     user = request.user
@@ -249,7 +250,7 @@ def blog(request):
         else:
          for field, errors in form.errors.items():
                 for error in errors:
-                    print(request, f"Error in {field}: {error}")
+                    messages.error(request, f"{field}: {error}")
     else:
         form = BlogForm(user=user)
 
@@ -258,152 +259,129 @@ def blog(request):
     form.fields['gambar'].widget.attrs.update({'class': 'file-input file-input-bordered file-input-primary w-full mt-2'})
     form.fields['kategori'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2'})
 
-    blogs = Blog.objects.all()
+    blogs = Blog.objects.filter(created_by=user)
     
     context = {'form': form, 'username': user.username, 'blogs': blogs}
     return render(request, 'users/blog.html', context)
 
 
 
+## views puisi
+@login_required
 def puisi(request):
-    # Get the current user's data
     user = request.user
-
-    # Combine the first name and last name into a single string for the "penulis" field
-    default_penulis = f"{user.first_name} {user.last_name}"
-
     if request.method == 'POST':
-        # Process the form submitted by the user
-        form = PuisiForm(request.POST)
+        form = PuisiForm(request.POST, user=user)
         if form.is_valid():
-            # Create an instance of the Blog model and populate it with form data
-            puisi = Puisi(
-                penulis=form.cleaned_data['penulis'],
-                judul=form.cleaned_data['judul'],
-                isi=form.cleaned_data['isi'],
-            )
-            puisi.save()  # Save the instance to the database
-
-            # Redirect to a success page or another appropriate page
+            form.save()
             return redirect('puisi')
+        else:
+         for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
-        form = PuisiForm(initial={'penulis': default_penulis})
-    form = PuisiForm()
+        form = PuisiForm(user=user)
+
     form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
     form.fields['isi'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
-    form.fields['penulis'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'value': default_penulis})
-    puisiAll = Puisi.objects.all()
 
-    context = {'form': form, 'username': user.username, 'puisiAll': puisiAll}
+    puisis = Puisi.objects.filter(created_by=user)
+    
+    context = {'form': form, 'username': user.username, 'puisis': puisis}
     return render(request, 'users/puisi.html', context)
 
+## views buku 
+@login_required
 def buku(request):
-    # Get the current user's data
     user = request.user
-
-    # Combine the first name and last name into a single string for the "penulis" field
-    default_penulis = f"{user.first_name} {user.last_name}"
-
     if request.method == 'POST':
-        # Process the form submitted by the user
-        form = BukuForm(request.POST)
+        form = BukuForm(request.POST, request.FILES, user=user)
         if form.is_valid():
-            # Create an instance of the Blog model and populate it with form data
-            buku = Buku(
-                penulis=form.cleaned_data['penulis'],
-                judul=form.cleaned_data['judul'],
-                isi=form.cleaned_data['sinopsis'],
-                buku_pdf=form.cleaned_data['buku_pdf'],
-            )
-            buku.save()  # Save the instance to the database
-
-            # Redirect to a success page or another appropriate page
+            form.save()
+            messages.success(request, "Buku berhasil di upload!")
             return redirect('buku')
+        else:
+         for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
-        form = BukuForm(initial={'penulis': default_penulis})
-    form = BukuForm()
-    form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
-    form.fields['isi'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
-    form.fields['penulis'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'value': default_penulis})
-    bukus = Buku.objects.all()
+        form = BukuForm(user=user)
 
+    form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
+    form.fields['sinopsis'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
+    form.fields['buku_pdf'].widget.attrs.update({'class': 'file-input file-input-bordered file-input-primary w-full mt-2'})
+    form.fields['sampul'].widget.attrs.update({'class': 'file-input file-input-bordered file-input-primary w-full mt-2'})
+
+    bukus = Buku.objects.filter(created_by=user)
+    
     context = {'form': form, 'username': user.username, 'bukus': bukus}
-    return render(request, 'users/puisi.html', context)
+    return render(request, 'users/buku.html', context)
+
+def download_buku(request, buku_id):
+    buku = get_object_or_404(Buku, pk=buku_id)
+    file_path = buku.file_buku.path
+    return FileResponse(open(file_path, 'rb'), as_attachment=True)
+
+## views berita
+@login_required
 def berita(request):
-    # Get the current user's data
     user = request.user
-
-    # Combine the first name and last name into a single string for the "penulis" field
-    default_penulis = f"{user.first_name} {user.last_name}"
-
     if request.method == 'POST':
-        # Process the form submitted by the user
-        form = BeritaForm(request.POST)
+        form = beritaForm(request.POST, request.FILES, user=user)
         if form.is_valid():
-            # Create an instance of the Blog model and populate it with form data
-            puisi = Berita(
-                penulis=form.cleaned_data['penulis'],
-                judul=form.cleaned_data['judul'],
-                isi=form.cleaned_data['isi'],
-            )
-            berita.save()  # Save the instance to the database
-
-            # Redirect to a success page or another appropriate page
+            form.save()
             return redirect('berita')
+        else:
+         for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
-        form = BeritaForm(initial={'penulis': default_penulis})
-    form = BeritaForm()
-    form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
-    form.fields['isi'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
-    form.fields['penulis'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'value': default_penulis})
-    beritas = Berita.objects.all()
+        form = BeritaForm(user=user)
 
+    form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
+    form.fields['isi_berita'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
+    form.fields['banner_berita'].widget.attrs.update({'class': 'file-input file-input-bordered file-input-primary w-full mt-2'})
+    form.fields['kategori'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2'})
+
+    beritas = Berita.objects.filter(created_by=user)
+    
     context = {'form': form, 'username': user.username, 'beritas': beritas}
     return render(request, 'users/berita.html', context)
+
+## views cerita
+@login_required
 def cerita(request):
-    # Get the current user's data
     user = request.user
-
-    # Combine the first name and last name into a single string for the "penulis" field
-    default_penulis = f"{user.first_name} {user.last_name}"
-
     if request.method == 'POST':
-        # Process the form submitted by the user
-        form = CeritaForm(request.POST)
+        form = ceritaForm(request.POST, request.FILES, user=user)
         if form.is_valid():
-            # Create an instance of the Blog model and populate it with form data
-            puisi = Cerita(
-                penulis=form.cleaned_data['penulis'],
-                judul=form.cleaned_data['judul'],
-                isi=form.cleaned_data['isi'],
-            )
-            cerita.save()  # Save the instance to the database
-
-            # Redirect to a success page or another appropriate page
+            form.save()
             return redirect('cerita')
+        else:
+         for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
-        form = CeritaForm(initial={'penulis': default_penulis})
-    form = CeritaForm()
+        form = CeritaForm(user=user)
+
     form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
     form.fields['isi'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
-    form.fields['penulis'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'value': default_penulis})
-    ceritas = Cerita.objects.all()
 
-    context = {'form': form, 'username': user.username, 'ceritas': ceritas}
-    return render(request, 'users/cerita.html', context)
+    ceritas = CeritaPendek.objects.filter(created_by=user)
     
+    context = {'form': form, 'username': user.username, 'ceritas': ceritas}
+    return render(request, 'users/cerpen.html', context)
 
 
 
-
-
-
-
+## fungsi detail
+@login_required
 def blog_detail(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
     blog.isi = markdown.markdown(blog.isi)
     return render(request, 'detail/blog-detail.html', {'blog': blog})
     
+@login_required
 def puisi_detail(request, puisi_id):
     puisi = get_object_or_404(Puisi, pk=puisi_id)
     puisi.isi = markdown.markdown(puisi.isi)

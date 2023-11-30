@@ -141,14 +141,40 @@ class Reaction(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
 
-class Berita(models.Model):
+
+
+class Buku(models.Model):
     judul = models.CharField(max_length=255)
-    isi_berita = models.TextField()
-    jenis_berita = models.CharField(max_length=100)
-    tanggal_upload = models.DateTimeField(auto_now_add=True)
+    sinopsis = models.TextField()
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
-    banner_berita = models.ImageField(upload_to='berita_banners/')
+    tanggal_upload = models.DateTimeField(auto_now_add=True)
+    buku_pdf = models.FileField(upload_to='buku_pdfs/')
+    sampul = models.ImageField(upload_to='sampul_buku/')
+    def __str__(self):
+     return self.judul
+
+class Blog(models.Model):
+    judul = models.CharField(max_length=255)
+    isi = models.TextField()
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # hubungan dengan Field user custom saya
+    tgl_dibuat = models.DateTimeField(auto_now_add=True)
+    terakhir_diubah = models.DateTimeField(auto_now=True)
+    gambar = models.ImageField(upload_to='blog_banners/')
+    kategori = models.ForeignKey(Kategori, on_delete=models.CASCADE)
+    def __str__(self):
+     return self.judul
+class Comment_Blog(models.Model):
+ created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+ isi = models.TextField()
+ tgl_dibuat = models.DateTimeField(auto_now_add=True)
+ blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+
+
+class Puisi(models.Model):
+    judul = models.CharField(max_length=255)
+    isi = models.TextField()
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    tanggal_upload = models.DateTimeField(auto_now_add=True)
     def __str__(self):
      return self.judul
 
@@ -160,39 +186,13 @@ class CeritaPendek(models.Model):
     def __str__(self):
      return self.judul
 
-class Buku(models.Model):
+class Berita(models.Model):
     judul = models.CharField(max_length=255)
-    sinopsis = models.TextField()
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    tanggal_upload = models.DateTimeField(auto_now_add=True)
-    buku_pdf = models.FileField(upload_to='buku_pdfs/')
-    def __str__(self):
-     return self.judul
-
-class Blog(models.Model):
-    judul = models.CharField(max_length=255)
-    isi = models.TextField()
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    tgl_dibuat = models.DateTimeField(auto_now_add=True)
-    terakhir_diubah = models.DateTimeField(auto_now=True)
-    gambar = models.ImageField(upload_to='blog_banners/')
+    isi_berita = models.TextField()
     kategori = models.ForeignKey(Kategori, on_delete=models.CASCADE)
-    def __str__(self):
-     return self.judul
-
-
-class Comment_Blog(models.Model):
- created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
- isi = models.TextField()
- tgl_dibuat = models.DateTimeField(auto_now_add=True)
- blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-
-
-class Puisi(models.Model):
-    judul = models.CharField(max_length=255)
-    isi = models.TextField()
-    tema = models.CharField(max_length=64)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tanggal_upload = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    
+    banner_berita = models.ImageField(upload_to='berita_banners/')
     def __str__(self):
      return self.judul

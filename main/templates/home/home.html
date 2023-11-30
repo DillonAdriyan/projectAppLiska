@@ -199,120 +199,27 @@
     <h2 class="text-center font-medium text-accent-content mb-12 text-md">
      List Buku-buku yang keren dan tentunya seru buat dibaca.
     </h2>
-    <div class="carousel carousel-center space-x-4 rounded-box w-full">
-     <div class="carousel-item">
-      <div class="">
-       <img
-        src="dist/img/cover/1.jpg"
-        class="rounded-box"
-        width="200"
-        height="auto"
-       />
-       <h2 class="text-md text-center text-accent-content dark:text-accent-content mt-2 font-bold">
-        Samudra Luas
-       </h2>
-       <p class="text-center font-semibold text-xs text-gray-600">
-        karya : <span class="inline-block">Dillon Adriyan</span>
-       </p>
-      </div>
-     </div>
-     <div class="carousel-item">
-      <div>
-       <img
-        src="dist/img/cover/2.jpg"
-        class="rounded-box"
-        width="200"
-        height="auto"
-       />
-       <h2 class="text-md text-center text-accent-content dark:text-accent-content mt-2 font-bold">
-        Samudra Luas
-       </h2>
-       <p class="text-center font-semibold text-xs text-gray-600">
-        karya : <span class="inline-block">Dillon Adriyan</span>
-       </p>
-      </div>
-     </div>
-     <div class="carousel-item">
-      <div class="">
-       <img
-        src="dist/img/cover/3.jpg"
-        class="rounded-box"
-        width="200"
-        height="auto"
-       />
-       <h2 class="text-md text-center text-accent-content dark:text-accent-content mt-2 font-bold">
-        Samudra Luas
-       </h2>
-       <p class="text-center font-semibold text-xs text-gray-600">
-        karya : <span class="inline-block">Dillon Adriyan</span>
-       </p>
-      </div>
-     </div>
-     <div class="carousel-item">
-      <div class="">
-       <img
-        src="dist/img/cover/4.jpg"
-        class="rounded-box"
-        width="200"
-        height="auto"
-       />
-       <h2 class="text-md text-center text-accent-content dark:text-accent-content mt-2 font-bold">
-        Samudra Luas
-       </h2>
-       <p class="text-center font-semibold text-xs text-gray-600">
-        karya : <span class="inline-block">Dillon Adriyan</span>
-       </p>
-      </div>
-     </div>
-     <div class="carousel-item">
-      <div class="">
-       <img
-        src="dist/img/cover/6.jpg"
-        class="rounded-box"
-        width="200"
-        height="auto"
-       />
-       <h2 class="text-md text-center text-accent-content dark:text-accent-content mt-2 font-bold">
-        Samudra Luas
-       </h2>
-       <p class="text-center font-semibold text-xs text-gray-600">
-        karya : <span class="inline-block">Dillon Adriyan</span>
-       </p>
-      </div>
-     </div>
-     <!--      <div class="carousel-item">
-      <div class="">
-       <img
-        src="dist/img/cover/5.jpg"
-        class="rounded-box"
-        width="200"
-        height="auto"
-       />
-       <h2 class="text-md text-center text-accent-content dark:text-accent-content mt-2 font-bold">
-        Samudra Luas
-       </h2>
-       <p class="text-center font-semibold text-xs text-gray-600">
-        karya : <span class="inline-block">Dillon Adriyan</span>
-       </p>
-      </div>
-     </div> -->
-     <div class="carousel-item">
-      <div class="">
-       <img
-        src="dist/img/cover/7.jpg"
-        class="rounded-box"
-        width="200"
-        height="auto"
-       />
-       <h2 class="text-md text-center text-accent-content dark:text-accent-content mt-2 font-bold">
-        Samudra Luas
-       </h2>
-       <p class="text-center font-semibold text-xs text-gray-600">
-        karya : <span class="inline-block">Dillon Adriyan</span>
-       </p>
-      </div>
-     </div>
-    </div>
+<div class="carousel carousel-center space-x-4 rounded-box w-full ">
+    {% if bukus %}
+        {% for buku in bukus %}
+            <div class="carousel-item">
+                <div class="">
+                     <img class="rounded-box overflow-hidden" src="{{ buku.sampul.url }}" width="200" height="auto">
+                    <h2 class="text-md text-center text-accent-content dark:text-accent-content mt-2 font-bold">
+                        {{ buku.judul }}
+                    </h2>
+                    <p class="text-center font-semibold text-xs text-gray-600">
+                        Pengupload: <span class="inline-block">{{ buku.created_by.username }}</span>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Tidak ada buku saat ini.</p>
+    {% endif %}
+</div>
+
+
     <div class="w-full text-center mt-12">
      <a href="books.html">
       <button class="btn text-primary-content bg-primary hover:bg-primary-focus">

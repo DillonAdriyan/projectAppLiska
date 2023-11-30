@@ -73,9 +73,13 @@
  showPw.addEventListener('click', function(){
   if (inputPw.type == "password") {
   inputPw.type = "text"
+   eye.classList.add("fa-eye-slash")
+   eye.classList.remove("fa-eye")
    
   } else {
    inputPw.type = "password"
+   eye.classList.remove("fa-eye-slash")
+   eye.classList.add("fa-eye")
   }
  })
  showPw2.addEventListener('click', function(){

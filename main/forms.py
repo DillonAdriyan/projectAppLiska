@@ -81,9 +81,27 @@ class RegistrationForm(UserCreationForm):
 class BukuForm(forms.ModelForm):
     class Meta:
         model = Buku
-        fields = ['judul', 'sinopsis', 'created_by', 'buku_pdf']
+        fields = ['judul', 'sinopsis', 'buku_pdf', 'created_by', 'sampul']
+        widgets = {
+            'created_by': forms.HiddenInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if self.user:
+            self.fields['created_by'].initial = self.user
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if not instance.created_by_id:
+            instance.user = self.user
+        if commit:
+            instance.save()
+        return instance
 
 
+# form blog 
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
@@ -94,14 +112,14 @@ class BlogForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('created_by', None)
+        self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         if self.user:
             self.fields['created_by'].initial = self.user
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        if not instance.user_id:
+        if not instance.created_by_id:
             instance.user = self.user
         if commit:
             instance.save()
@@ -114,19 +132,69 @@ class PuisiForm(forms.ModelForm):
         model = Puisi
         fields = ['judul', 'isi', 'created_by']
         widgets = {
-            'isi': forms.Textarea(attrs={'class': 'markdown-editor'}),
+            'created_by': forms.HiddenInput(),
         }
 
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if self.user:
+            self.fields['created_by'].initial = self.user
 
- 
-# form blog
-class CerPenForm(forms.ModelForm):
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if not instance.created_by_id:
+            instance.user = self.user
+        if commit:
+            instance.save()
+        return instance
+
+
+# form cerita
+class CeritaForm(forms.ModelForm):
     class Meta:
         model = CeritaPendek
-        fields = ['judul', 'isi', 'created_by' ]
-# form blog
+        fields = ['judul', 'isi', 'created_by']
+        widgets = {
+            'created_by': forms.HiddenInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if self.user:
+            self.fields['created_by'].initial = self.user
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if not instance.created_by_id:
+            instance.user = self.user
+        if commit:
+            instance.save()
+        return instance
+
+
+# form berita
 class BeritaForm(forms.ModelForm):
     class Meta:
         model = Berita
-        fields = ['judul', 'isi_berita', 'jenis_berita',   'created_by', 'banner_berita']
+        fields = ['judul', 'isi_berita', 'banner_berita', 'kategori', 'created_by']
+        widgets = {
+            'created_by': forms.HiddenInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if self.user:
+            self.fields['created_by'].initial = self.user
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if not instance.created_by_id:
+            instance.user = self.user
+        if commit:
+            instance.save()
+        return instance
+
 

@@ -63,11 +63,6 @@ INSTALLED_APPS = [
     'compressor',
     'allauth',
     'allauth.account',
-    'rest_framework',
-    'crispy_forms',
-    'crispy_tailwind',
-    'taggit',
-    'ckeditor',
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'tailwind'
 CRISPY_TEMPLATE_PACK = 'tailwind'
@@ -159,11 +154,13 @@ USE_TZ = True
 
 
 # sessions atur
-SESSION_COOKIE_AGE = 400  # Contoh: sesi kedaluwarsa dalam 1 jam (dalam detik)
+SESSION_COOKIE_AGE = 3600  # Contoh: sesi kedaluwarsa dalam 1 jam (dalam detik)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+STATICFILES_DIRS = (
+    os.path.join('static'),
+)
 STATIC_URL = 'static/'
 
 # Default primary key field type
