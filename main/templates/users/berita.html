@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %} 
+  <!-- end header section  -->
+    <section id="hello mt-4">
+   <div class="container">
+    <h1 class="font-bold text-4xl ml-2">Halo, Dillon!</h1>
+    <p class="ml-3 text-sm font-semibold text-primary">
+     Bagaimana kabar anda hari ini?
+    </p>
+   </div>
+  </section>
+  <div class="container mt-8">
+   <form>
+    <label
+     for="default-search"
+     class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+     >Search</label
+    >
+    <div class="relative">
+     <div
+      class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+     >
+      <svg
+       class="w-4 h-4 text-gray-500 dark:text-gray-400"
+       aria-hidden="true"
+       xmlns="http://www.w3.org/2000/svg"
+       fill="none"
+       viewBox="0 0 20 20"
+      >
+       <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+       />
+      </svg>
+     </div>
+     <input
+      type="search"
+      id="default-search" 
+      class="block w-full p-4 pl-10 text-sm text-gray-900 rounded-lg border-none focus:ring-info focus:border-info bg-cyan-50 dark:placeholder-gray-400 text-accent-content dark:focus:ring-info dark:focus:border-info"
+      placeholder="Search Mockups, Logos..."
+      required
+     />
+     <button
+      type="submit"
+      class="text-white absolute right-2.5 bottom-2.5 bg-primary  hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary  dark:hover:bg-cyan-700 dark:focus:ring-blue-800"
+     >
+      Search
+     </button>
+    </div>
+   </form>
+  </div>
+
+  <!-- tabs section  -->
+  <div class="container mt-4">
+   <div class="tabs font-bold">
+    <a href="{% url 'home' %}" class="tab">Home</a>
+    <a href="{% url 'blog' %}" class="tab ">Blog</a>
+    <a href="{% url 'buku' %}" class="tab">Buku</a>
+    <a href="{% url 'cerita' %}" class="tab">Cerita</a>
+    <a href="{% url 'berita' %}" class="tab tab-active">Berita</a>
+   </div>
+  </div>
+  <!-- tabs section  -->
+
+  <!--  Carousel section  -->
+  <div class="container mt-4">
+  <div
+   class="carousel carousel-center w-full p-4 space-x-4 rounded-box"
+  >
+   <div class="carousel-item w-2/3 lg:w-1/2">
+    <div class="card    bg-primary  text-accent-content ">
+     <div class="card-body">
+      <h2 class="card-title">Card title!</h2>
+      <p>If a dog chews shoes whose shoes does he choose?</p>
+      <div class="card-actions  justify-end">
+       <button class="btn glass text-accent-content">Lihat</button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  </div>
+  <!--  Carousel section  -->
+  <div class="w-full bg-base-300 mt-12 mb-8 px-4 h-[2px] rounded-full"></div>
+  <!-- buat blog section -->
+  <section id="buat-blog" class="pb-36">
+   
+  <div class="container">
+   <h1 class="text-2xl font-bold mt-2 mb-4 ml-6">BUAT BLOG</h1>
+   <div class="w-full h-1 bg-primary rounded-full mb-8"></div>
+  <form action="">
+   <h1 class="text-xl font-bold mt-4 ml-2">BANNER</h1>
+   <input type="file" class="file-input file-input-bordered file-input-primary w-full mt-2" />
+   <h1 class="text-xl font-bold mt-4 ml-2">JUDUL</h1>
+   <input id="judul" type="text" placeholder="Masukan Judul..." class="input input-bordered input-primary w-full mt-2" />
+   <h1 class="text-xl font-bold mt-4 ml-2">DESKRIPSI</h1>
+   <textarea class="textarea textarea-primary textarea-lg w-full mt-2 " placeholder="Tulis Deskripsi.."></textarea>
+   <button type="submit" class="btn btn-primary mt-2">Upload</button>
+  </form>
+  </div> 
+  </section>
+  
+  <!-- buat blog section -->
+  
+  {% endblock %}

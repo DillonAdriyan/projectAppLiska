@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+ <img src="{{ blog.gambar.url }}" alt="">
+<h1 class="text-2xl text-bold">{{ blog.judul }}</h1>
+<p class="blog-content">{{ blog.isi|safe }}</p>
+</div>
+{% endblock %}

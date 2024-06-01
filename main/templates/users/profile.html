@@ -1,0 +1,78 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% compress css %}
+  <link href="{% static 'css/output.css' %}" rel="stylesheet" />
+  {% endcompress %}
+  <link href="{% static 'css/typograph.css' %}" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <script src="https://kit.fontawesome.com/f21ac27679.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Arizonia&family=Dancing+Script:wght@400;600;700&family=Gloock&family=Gloria+Hallelujah&family=Great+Vibes&family=Inter:wght@400;500&family=Italianno&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@500;600;700&family=Pinyon+Script&family=Playfair+Display:wght@400;500;600&family=Roboto+Mono&display=swap"
+   rel="stylesheet"
+  />
+  <style>
+ body * {
+  font-family: 'Open Sans', sans-serif;
+ }
+.svgku {
+ fill: rgb(154,43,241);
+ fill: linear-gradient(90deg, rgba(193,77,231,1) 0%, rgba(139,0,235,1) 100%);
+}
+    </style>
+
+
+  
+  <title>e-Liska</title>
+ </head>
+<body>
+<div class="absolute -z-50 w-full top-0">
+ 
+<svg class="svgku" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="" fill-opacity="1" d="M0,192L40,176C80,160,160,128,240,112C320,96,400,96,480,117.3C560,139,640,181,720,181.3C800,181,880,139,960,144C1040,149,1120,203,1200,234.7C1280,267,1360,277,1400,282.7L1440,288L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
+</div>
+  <a href="javascript:history.back()" class="absolute z-100 top-0 mt-4"><button class="btn btn-primary py-2 px-4 ml-6"><i class="fa-solid fa-arrow-left"></i>Back</button>
+ <div class="container mt-14">
+  <div class="flex flex-wrap justify-between">
+    
+  <div class="w-1/2 mt-4 text-center mr-8">
+  <h1 class="text-xl">{{ user.first_name }} {{ user.last_name }}</h1>
+  <div class=" mx-auto mt-1 text-center">
+   <p class="px-2 text-purple-600 text-sm">{{ user.userprofile.get_kelas_display }} {{ user.userprofile.get_jurusan_display }}</p>
+  </div>
+  </div>
+  <div class="profile w-[140px] h-[140px] bg-white rounded-full overflow-hidden border-4 border-white">
+   {% if photo_profile %}
+   <img src="{{ photo_profile.url }}" alt="photo profile {{ user.first_name }}" height="200" width="200" class="mb-8 object-fill">
+   {% else %}
+   <p>No Photo Profile</p>
+   {% endif %}
+  </div>
+  <div class="w-full ml-5 mt-6 pb-2 border-b-4 border-primary bg-white text-start relative">
+   <p class="text-sm font-semibold text-slate-500" >Nama</p>
+   <p class="text-lg mt-2"><span class="w-4"><i class="fa-solid fa-user text-primary mr-4 "></i></span>{{ user.first_name }} {{ user.last_name }}</p>
+  </div>
+  <div class="w-full ml-5 mt-6 pb-2 border-b-4 border-primary bg-white text-start relative">
+   <p class="text-sm font-semibold text-slate-500" >Email</p>
+   <p class="text-lg mt-2"><span class="w-4"><i class="fa-solid fa-envelope text-primary mr-4 "></i></span>{{ user.email }}</p>
+  </div>
+  <div class="w-36 ml-4 mt-6 pb-2 border-b-4 border-primary bg-white text-start relative">
+   <p class="text-sm font-semibold text-slate-500" >Kelas</p>
+   <p class=" text-lg mt-2"><span class="w-4"><i class="fa-solid fa-school text-primary mr-4 "></i></span>{{ user.userprofile.get_kelas_display }} </p>
+  </div>
+  <div class="w-36 mt-6 bg-white pb-2 border-b-4 border-primary text-start relative">
+   <p class="text-sm font-semibold text-slate-500" >Jurusan</p>
+   <p class=" text-lg mt-2"><span class="w-4"><i class="fa-solid fa-book text-primary mr-4 "></i></span>{{ user.userprofile.get_jurusan_display }} </p>
+  </div>
+  <div class="text-center w-full">
+   <p class="text-lg text-slate-400 font-bold text-sm mt-36">eliska v.1</p>
+  </div>
+  </div>
+ </div>
+ 
+</body>
+</html>

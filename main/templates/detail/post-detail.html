@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- post_detail.html -->
+
+<!-- Tampilkan detail postingan -->
+<div class="container mt-24">
+ 
+<h1 class="">{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+
+<!-- Tampilkan formulir untuk menambah komentar -->
+<form method="post" action="{% url 'add_comment' post.id %}">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Add Comment</button>
+</form>
+
+<!-- Tampilkan daftar komentar -->
+<ul>
+    {% for comment in comments %}
+        <li>{{ comment.author }}: {{ comment.content }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Tampilkan pilihan reaksi untuk postingan -->
+<div>
+    <p>Reactions:</p>
+    <form id="reactionForm" method="post" action="{% url 'add_reaction' post.id %}">
+        {% csrf_token %}
+        <select name="reaction">
+            {% for choice in reaction_choices %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">React</button>
+    </form>
+</div>
+</div>
+
+<!-- JavaScript untuk mengirim reaksi melalui AJAX -->
+<script>
+    const reactionForm = document.getElementById('reactionForm');
+    reactionForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(reactionForm);
+        fetch(reactionForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                // Jika reaksi berhasil, Anda dapat melakukan tindakan tambahan di sini
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
+{% endblock %}

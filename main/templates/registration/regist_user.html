@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+   {% if message.tags == 'error' %}
+           <div class="alert alert-success absolute top-0 mt-2 successMessage" style="z-index:20;">
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z"/></svg>
+        <span>{{ message }}</span>
+    </div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<div class=" mt-24">
+ <h1 class="text-4xl font-bold text-center">Daftar</h1>
+  <form class="max-w-md mx-auto card p-8 space-y-4" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div>
+      <label for="photo_profile" class="text-base">Photo Profil</label>
+      {{ form.photo_profile }}
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="first_name" class="text-sm text-base">Nama Depan</label>
+        {{ form.first_name }}
+      </div>
+      <div>
+        <label for="last_name" class="text-sm text-base">Nama Belakang</label>
+        {{ form.last_name }}
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="kelas" class="text-sm text-base">Kelas</label>
+        {{ form.kelas }}
+      </div>
+      <div>
+        <label for="jurusan" class="text-sm text-base">Jurusan</label>
+        {{ form.jurusan }}
+      </div>
+    </div>
+    <div>
+      <label for="typer_user" class="text-base text-sm">Role</label>
+      {{ form.typer_user }}
+    </div>
+    
+    <div>
+      <label for="username" class="text-base text-sm">Username</label>
+      {{ form.username }}
+    </div>
+    <div>
+      <label for="email" class="text-base text-sm">Email</label>
+      {{ form.email }}
+    </div>
+    
+<div class="grid grid-cols-2 gap-4">
+  <div>
+    <label for="password" class="text-sm text-base">Password</label>
+    <div class="">
+      {{ form.password }}
+      <button type="button" id="show-pw1" class="absolute z-10 right-60 mr-2 mt-3" onclick="togglePassword('id_password', 'eye')"><i id="eye" class="fa-solid fa-eye-slash"></i></button>
+    </div>
+  </div>
+  <div>
+    <label for="password2" class="text-sm text-base">Konfirmasi Password</label>
+    <div class="">
+      {{ form.password2 }}
+      <button type="button" id="show-pw2" class="absolute z-10 right-12 mt-3" onclick="togglePassword('id_password2', 'eye2')"><i id="eye2" class="fa-solid fa-eye-slash"></i></button>
+    </div>
+  </div>
+</div>
+
+
+
+    
+    <div>
+      <button type="submit" class="btn btn-primary w-full">Daftar</button>
+    </div>
+  </form>
+</div>
+<script>
+function togglePassword(inputId, eyeId) {
+    var passwordInput = document.getElementById(inputId);
+    const eye = document.getElementById(eyeId);
+    console.log("Button clicked!");
+    console.log("Current input type:", passwordInput.type);
+    if (passwordInput.type == 'password') {
+        passwordInput.type = 'text';
+        eye.classList.add("fa-eye");
+        eye.classList.remove("fa-eye-slash");
+        console.log("diclick" + eye);
+    } else {
+        passwordInput.type = 'password';
+        eye.classList.add("fa-eye-slash");
+        eye.classList.remove("fa-eye");
+    }
+}
+</script>
+
+{% endblock %}

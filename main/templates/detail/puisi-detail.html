@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+<h1 class="font-bold text-2xl text-white">{{ puisi.judul }}</h1>
+<p class="text-sm font-semibold">Karya : {{ puisi.penulis }}</p>
+<p class="blog-content">{{ puisi.isi|safe }}</p>
+</div>
+{% endblock %}
