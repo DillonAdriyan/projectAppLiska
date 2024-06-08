@@ -1,3 +1,4 @@
 main/static/CACHE
+main/static/img/*.jpg
 main/node_modules
 media/*
