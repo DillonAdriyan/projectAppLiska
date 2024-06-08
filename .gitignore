@@ -1,4 +1,6 @@
 main/static/CACHE
 main/static/img/*.jpg
-main/node_modules
+main/node_modules/*
+main/__pycache__
+eLiska/__pycache__
 media/*
