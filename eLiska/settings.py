@@ -45,7 +45,8 @@ COMPRESS_ROOT = BASE_DIR / 'main/static'
 
 COMPRESS_ENABLED = True
 
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder','django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',)
 # Application definition
 
 AUTH_USER_MODEL = 'main.CustomUser'  # Ganti dengan nama app dan model yang benar
@@ -54,6 +55,7 @@ AUTH_USER_MODEL = 'main.CustomUser'  # Ganti dengan nama app dan model yang bena
 INSTALLED_APPS = [
     'main',
     'sapaska',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -161,6 +163,7 @@ SESSION_COOKIE_AGE = 3600  # Contoh: sesi kedaluwarsa dalam 1 jam (dalam detik)
 STATICFILES_DIRS = (
     os.path.join('static'),
 )
+STATIC_ROOT = '/static/'
 STATIC_URL = '/static/'
 
 # Default primary key field type

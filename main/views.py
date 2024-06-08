@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from .forms import RegistrationForm, BukuForm, BlogForm, CeritaForm, BeritaForm, PuisiForm, CustomRegistrationForm, PostForm
+from .forms import RegistrationForm, BukuForm, BlogForm, CeritaForm, BeritaForm, PuisiForm, CustomRegistrationForm, PostForm, UpdateUserForm, UpdateProfileForm
 # views.py
 from django.views.generic.edit import CreateView
 from .models import Buku, Blog, CeritaPendek, Berita, Puisi, UserProfile
@@ -200,26 +200,39 @@ def setting_view(request):
         return render(request, 'users/setting.html', {'user': user})
     else:
         return redirect('login')
+@login_required
 def profile_view(request):
     user = request.user  # Mengambil objek pengguna saat ini
     if user.is_authenticated:
         return render(request, 'users/profile.html', {'user': user})
     else:
         return redirect('login')
-def update_profile_view(request):
-    if request.method == 'POST':
-        user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        
 
+@login_required
+def update_profile_view(request, user_id):
+    user = request.user
+    try:
+        userprofile = UserProfile.objects.get(user=user)
+    except UserProfile.DoesNotExist:
+        userprofile = None
+
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=userprofile)
+        
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='users-profile')
+            return redirect('profile')
     else:
-        user_form = UpdateUserForm(instance=request.user)
-        profile_form = UpdateProfileForm(instance=request.user.profile)
-        return render(request, 'users/profile.html', {'user': user})
+        user_form = UpdateUserForm(instance=user)
+        profile_form = UpdateProfileForm(instance=userprofile)
+
+    context = {'user': user, 'user_form': user_form, 'profile_form': profile_form}
+    return render(request, 'users/update_profile.html', context)
+
 
 
 

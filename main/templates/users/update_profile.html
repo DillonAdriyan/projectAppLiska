@@ -1,0 +1,154 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% compress css %}
+  <link href="{% static 'css/output.css' %}" rel="stylesheet" />
+  {% endcompress %}
+  <link href="{% static 'css/typograph.css' %}" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <script src="https://kit.fontawesome.com/f21ac27679.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Arizonia&family=Dancing+Script:wght@400;600;700&family=Gloock&family=Gloria+Hallelujah&family=Great+Vibes&family=Inter:wght@400;500&family=Italianno&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@500;600;700&family=Pinyon+Script&family=Playfair+Display:wght@400;500;600&family=Roboto+Mono&display=swap"
+   rel="stylesheet"
+  />
+  <style>
+ body * {
+  font-family: 'Open Sans', sans-serif;
+ }
+.svgku {
+ fill: rgb(154,43,241);
+ fill: linear-gradient(90deg, rgba(193,77,231,1) 0%, rgba(139,0,235,1) 100%);
+}
+    </style>
+
+
+  
+  <title>e-Liska</title>
+ </head>
+<body>
+<div class="absolute -z-50 w-full top-0">
+ 
+<svg class="svgku" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="" fill-opacity="1" d="M0,192L40,176C80,160,160,128,240,112C320,96,400,96,480,117.3C560,139,640,181,720,181.3C800,181,880,139,960,144C1040,149,1120,203,1200,234.7C1280,267,1360,277,1400,282.7L1440,288L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
+</div>
+  <a href="javascript:history.back()" class="absolute z-100 top-0 mt-4"><button class="btn btn-primary py-2 px-4 ml-6"><i class="fa-solid fa-arrow-left"></i>Back</button></a>
+ <form action="" method="post">
+   {% csrf_token %}
+ <div class="container mt-14">
+  <div class="flex flex-wrap justify-center">
+    <div class="w-[140px] h-[140px] absolute z-20">
+   <label for="profilePic" class="h-12 w-12 rounded-full absolute z-50 bg-primary border-4 border-white bottom-0 right-0 text-center">
+    <i class="fa-solid fa-pencil mt-3 text-xl text-white"></i>
+   </label>
+   {{ profile_form.photo_profile }}
+    </div>
+    
+  <div class="profile max-w-full w-[140px] h-[140px] bg-white rounded-full overflow-hidden border-4 border-white">
+   {% if photo_profile %}
+   <img id="photoImg1" src="{{ photo_profile.url }}" alt="photo profile {{ user.first_name }}" height="160" width="160" class="mb-8 object-fill">
+   <img id="preview" src="" alt="photo profile {{ user.first_name }}" height="160" width="160" class="mb-8 object-fill z-20">
+   {% else %}
+   <p>No Photo Profile</p>
+   {% endif %}
+  </div>
+  <div class="grid gap-4 mt-4 w-full">
+   <div class="grid grid-cols-2 gap-4">
+ 
+   <div class="">
+    <h2 class="mb-2 text-sm text-sm text-sm">Nama Depan</h2>
+<label class="input input-sm bg-gray-200 flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" /></svg>
+  {{ user_form.first_name }}
+</label>
+   </div>
+   <div class="">
+    <h2 class="mb-2 text-sm text-sm text-sm">Nama Belakang</h2>
+<label class="input input-sm bg-gray-200 flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" /></svg>
+  {{ user_form.last_name }}
+</label>
+   </div>
+   </div>
+   
+   <div class="">
+    <h2 class="mb-2 text-sm text-sm text-sm">Email</h2>
+<label class="input input-sm bg-gray-200 flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" /><path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" /></svg>
+  {{ user_form.email }}
+  {{ user_form.username }}
+
+</label>
+   </div>
+   <div class="">
+    <h2 class="mb-2 text-sm text-sm text-sm">Kelas</h2>
+<label class="input input-sm bg-gray-200 flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" /><path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" /></svg>
+ {{ profile_form.kelas }}
+</label>
+   </div>
+   <div class="">
+    <h2 class="mb-2 text-sm text-sm text-sm">Jurusan</h2>
+<label class="input input-sm bg-gray-200 flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" /><path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" /></svg>
+ {{ profile_form.jurusan }}
+</label>
+   </div>
+   <div class="">
+    <h2 class="mb-2 text-sm text-sm text-sm">Role</h2>
+<label class="input input-sm bg-gray-200 flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" /><path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" /></svg>
+ {{ profile_form.typer_user }}
+</label>
+   </div>
+   <div class="">
+    <h2 class="mb-2 text-sm text-sm text-sm">Tanggal Lahir</h2>
+<label class="input input-sm bg-gray-200 flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" /><path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" /></svg>
+ {{ profile_form.tanggal_lahir }}
+</label>
+   </div>
+  <div class="text-center w-full">
+   <p class="text-lg text-slate-400 font-bold text-sm mt-36">eliska v.1</p>
+  </div>
+  </div>
+ </div>
+ </div>
+  <div class="w-full px-2 sticky bottom-2">
+   <button class="w-full btn btn-primary" type="submit">Update Profile</button>
+     </div>
+     </form>
+        <script>
+   document.querySelector('#profilePic').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+
+    // Jika tidak ada file, keluar dari fungsi
+    if (!file) {
+        return;
+    }
+
+    // Menampilkan nama file
+    document.getElementById('fileName').textContent = `${file.name}`;
+
+    // Membuat objek URL untuk file yang diupload
+    const reader = new FileReader();
+
+    // Ketika file selesai dibaca
+    reader.onload = function(e) {
+        const preview = document.getElementById('preview');
+        const imgNow = document.getElementById('photoImg1');
+        preview.src = e.target.result;
+        preview.classList.remove('hidden')
+        imgNow.classList.add('hidden')
+       
+    };
+
+    // Membaca file sebagai Data URL (base64)
+    reader.readAsDataURL(file);
+});
+</script>
+</body>
+</html>

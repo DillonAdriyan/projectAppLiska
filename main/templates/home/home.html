@@ -244,7 +244,7 @@
             <div class="w-full md:w-1/2 mb-16 px-4">
                 <div class="w-1/2 flex items-center">
                     <div id="gambar" class="w-10 h-10 rounded-full bg-primary mb-2 mr-2 overflow-hidden">
-                        <img src="{{ blog.user.profilesiswa.profile_picture.url }}" alt="" height="80" />
+                        <img src="{{ blog.created_by.userprofile.photo_profile.url }}" alt="" height="80" />
                     </div>
                     <div class="-mt-2">
                         <h2 id="user" class="text-sm text-accent-content dark:text-accent-content font-bold inline-block">
@@ -270,12 +270,12 @@
                     {% if user.is_authenticated %}
                         <form action="{% url 'like_blog' blog.id %}" method="POST" class="inline">
                             {% csrf_token %}
-                            <button type="submit" class="hover:animate-bounce hover:text-primary">
+                            <button type="submit" class="hover:text-primary absolute right-0 mr-2">
                                 <img class="dark:bg-white h-8 mt-2 w-8 py-2 rounded-full ml-3" src="{% static 'resource/like.svg' %}" alt="Like" />
+                    <span id="likescount" class="ml-2 mt-3 block text-start text-xs">{{ blog.total_likes }} Like</span>
                             </button>
                         </form>
                     {% endif %}
-                    <span class="ml-2 absolute top-0 text-start">{{ blog.total_likes }} Likes</span>
                 </div>
             </div>
             {% endfor %}
@@ -435,5 +435,10 @@
    </nav>
   </footer>
 <!-- Di bagian bawah halaman HTML Anda -->
-
+<script>
+like = document.querySelector('#likescount')
+ function showLike() {
+  like.classList.remove('hidden')
+ }
+</script>
  {% endblock %}

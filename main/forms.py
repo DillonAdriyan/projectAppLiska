@@ -7,25 +7,41 @@ from crispy_forms.layout import Submit
 
 
 class UpdateUserForm(forms.ModelForm):
-    username = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'grow hidden', 'value': '{{ user.username }}'}))
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'grow', 'value': '{{ user.email }}'}))
+    first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'grow', 'value': '{{ user.first_name }}'}))
+    last_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'grow', 'value': '{{ user.last_name }}'}))
 
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'first_name', 'last_name']
 
-
 class UpdateProfileForm(forms.ModelForm):
-    photo_profile = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
-    typer_user = forms.ChoiceField(choices=UserProfile.TYPE_USER_CHOICES, required=False, widget=forms.Select(attrs={'class': 'select select-primary w-full'}))
-    kelas = forms.ChoiceField(choices=UserProfile.KELAS_CHOICES, required=False, widget=forms.Select(attrs={'class': 'select select-primary w-full'}))
-    jurusan = forms.ChoiceField(choices=UserProfile.JURUSAN_CHOICES, required=False, widget=forms.Select(attrs={'class': 'select select-primary w-full'}))
+    photo_profile = forms.ImageField(widget=forms.FileInput(attrs={'id': 'profilePic','class': 'grow hidden'}), required=False)
+    typer_user = forms.ChoiceField(choices=UserProfile.TYPE_USER_CHOICES, required=False, widget=forms.Select(attrs={'class': 'grow'}))
+    kelas = forms.ChoiceField(choices=UserProfile.KELAS_CHOICES, required=False, widget=forms.Select(attrs={'class': 'grow'}))
+    jurusan = forms.ChoiceField(choices=UserProfile.JURUSAN_CHOICES, required=False, widget=forms.Select(attrs={'class': 'grow'}))
+    tanggal_lahir = forms.DateField(required=False, widget=forms.SelectDateWidget(
+            attrs={'class': 'grow'},
+            years=range(1990, 2011)
+        ))
 
     class Meta:
         model = UserProfile
-        fields = ['photo_profile', 'typer_user', 'kelas', 'jurusan']
+        fields = ['photo_profile', 'typer_user', 'kelas', 'jurusan', 'tanggal_lahir']
+
+    def __init__(self, *args, **kwargs):
+        userprofile = kwargs.pop('userprofile', None)
+        super(UpdateProfileForm, self).__init__(*args, **kwargs)
+        
+        if userprofile:
+            self.fields['photo_profile'].initial = userprofile.photo_profile
+            self.fields['typer_user'].initial = userprofile.typer_user
+            self.fields['kelas'].initial = userprofile.kelas
+            self.fields['jurusan'].initial = userprofile.jurusan
+            self.fields['tanggal_lahir'].initial = userprofile.tanggal_lahir
+
+
 
 
 class PostForm(forms.ModelForm):

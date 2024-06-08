@@ -37,6 +37,9 @@ class UserProfile(models.Model):
     kelas = models.PositiveSmallIntegerField(choices=KELAS_CHOICES, null=True)
     jurusan = models.PositiveSmallIntegerField(choices=JURUSAN_CHOICES, null=True)
     tanggal_lahir = models.DateField(null=True, blank=True)
+    
+    def __str__(self):
+     return self.user.first_name
 
 class ProfileSiswa(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
