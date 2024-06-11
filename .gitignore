@@ -1,4 +1,4 @@
-main/static/CACHE
+main/static/CACHE/css/*.css
 main/static/img/*.jpg
 main/node_modules/*
 main/__pycache__
