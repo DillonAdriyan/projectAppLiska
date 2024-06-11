@@ -39,28 +39,29 @@
  <div class="container mt-14">
   <div class="flex flex-wrap justify-between">
     
-  <div class="w-1/2 mt-4 text-center mr-8">
+  <div class="w-1/2 mt-4 text-center">
   <h1 class="text-xl">{{ user.first_name }} {{ user.last_name }}</h1>
   <div class=" mx-auto mt-1 text-center">
    <p class="px-2 text-purple-600 text-sm">{{ user.userprofile.get_kelas_display }} {{ user.userprofile.get_jurusan_display }}</p>
   </div>
   </div>
-  <div class="profile w-[140px] h-[140px] bg-white rounded-full overflow-hidden border-4 border-white">
+  <div class="profile bg-white rounded-full overflow-hidden border-4 border-white w-1/2">
    {% if photo_profile %}
-   <img src="{{ photo_profile.url }}" alt="photo profile {{ user.first_name }}" height="200" width="200" class="mb-8 object-fill">
+   <img src="{{ photo_profile.url }}" alt="photo profile {{ user.first_name }}"
+   height="200" width="200" class="mb-8 object-fill w-[140px] h-[140px] rounded-full">
    {% else %}
    <p>No Photo Profile</p>
    {% endif %}
   </div>
-  <div class="w-full ml-5 mt-6 pb-2 border-b-4 border-primary bg-white text-start relative">
+  <div class="w-full ml-2 mt-6 pb-2 border-b-4 border-primary bg-white text-start relative">
    <p class="text-sm font-semibold text-slate-500" >Nama</p>
    <p class="text-lg mt-2"><span class="w-4"><i class="fa-solid fa-user text-primary mr-4 "></i></span>{{ user.first_name }} {{ user.last_name }}</p>
   </div>
-  <div class="w-full ml-5 mt-6 pb-2 border-b-4 border-primary bg-white text-start relative">
+  <div class="w-full ml-2 mt-6 pb-2 border-b-4 border-primary bg-white text-start relative">
    <p class="text-sm font-semibold text-slate-500" >Email</p>
    <p class="text-lg mt-2"><span class="w-4"><i class="fa-solid fa-envelope text-primary mr-4 "></i></span>{{ user.email }}</p>
   </div>
-  <div class="w-36 ml-4 mt-6 pb-2 border-b-4 border-primary bg-white text-start relative">
+  <div class="w-36 ml-2 mt-6 pb-2 border-b-4 border-primary bg-white text-start relative">
    <p class="text-sm font-semibold text-slate-500" >Kelas</p>
    <p class=" text-lg mt-2"><span class="w-4"><i class="fa-solid fa-school text-primary mr-4 "></i></span>{{ user.userprofile.get_kelas_display }} </p>
   </div>

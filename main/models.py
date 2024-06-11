@@ -97,7 +97,7 @@ class Buku(models.Model):
     sinopsis = models.TextField()
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tanggal_upload = models.DateTimeField(auto_now_add=True)
-    buku_pdf = models.FileField(upload_to='buku_pdfs/')
+    buku_link = models.CharField(max_length=255, null=True)
     sampul = models.ImageField(upload_to='sampul_buku/')
 
     def __str__(self):

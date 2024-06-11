@@ -36,24 +36,20 @@
 <svg class="svgku" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="" fill-opacity="1" d="M0,192L40,176C80,160,160,128,240,112C320,96,400,96,480,117.3C560,139,640,181,720,181.3C800,181,880,139,960,144C1040,149,1120,203,1200,234.7C1280,267,1360,277,1400,282.7L1440,288L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
 </div>
   <a href="javascript:history.back()" class="absolute z-100 top-0 mt-4"><button class="btn btn-primary py-2 px-4 ml-6"><i class="fa-solid fa-arrow-left"></i>Back</button></a>
- <form action="" method="post">
+ <form action="" method="post" id="myForm">
    {% csrf_token %}
  <div class="container mt-14">
   <div class="flex flex-wrap justify-center">
     <div class="w-[140px] h-[140px] absolute z-20">
-   <label for="profilePic" class="h-12 w-12 rounded-full absolute z-50 bg-primary border-4 border-white bottom-0 right-0 text-center">
+   <label for="profile-input" class="h-12 w-12 rounded-full absolute z-50 bg-primary border-4 border-white bottom-0 right-0 text-center">
     <i class="fa-solid fa-pencil mt-3 text-xl text-white"></i>
    </label>
    {{ profile_form.photo_profile }}
     </div>
     
   <div class="profile max-w-full w-[140px] h-[140px] bg-white rounded-full overflow-hidden border-4 border-white">
-   {% if photo_profile %}
    <img id="photoImg1" src="{{ photo_profile.url }}" alt="photo profile {{ user.first_name }}" height="160" width="160" class="mb-8 object-fill">
-   <img id="preview" src="" alt="photo profile {{ user.first_name }}" height="160" width="160" class="mb-8 object-fill z-20">
-   {% else %}
-   <p>No Photo Profile</p>
-   {% endif %}
+   <img id="preview" src="" alt="Preview" height="160" width="160" class="">
   </div>
   <div class="grid gap-4 mt-4 w-full">
    <div class="grid grid-cols-2 gap-4">
@@ -118,20 +114,17 @@
  </div>
  </div>
   <div class="w-full px-2 sticky bottom-2">
-   <button class="w-full btn btn-primary" type="submit">Update Profile</button>
+   <button class="w-full btn bg-gray-100" type="submit" id="submitButton">Update Profile</button>
      </div>
      </form>
         <script>
-   document.querySelector('#profilePic').addEventListener('change', function(event) {
+   document.querySelector('#profile-input').addEventListener('change', function(event) {
     const file = event.target.files[0];
 
     // Jika tidak ada file, keluar dari fungsi
     if (!file) {
         return;
     }
-
-    // Menampilkan nama file
-    document.getElementById('fileName').textContent = `${file.name}`;
 
     // Membuat objek URL untuk file yang diupload
     const reader = new FileReader();
@@ -141,7 +134,7 @@
         const preview = document.getElementById('preview');
         const imgNow = document.getElementById('photoImg1');
         preview.src = e.target.result;
-        preview.classList.remove('hidden')
+        preview.style.display = 'block';
         imgNow.classList.add('hidden')
        
     };
@@ -149,6 +142,44 @@
     // Membaca file sebagai Data URL (base64)
     reader.readAsDataURL(file);
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('myForm');
+    const inputs = form.querySelectorAll('input, select, textarea');
+    const submitButton = document.getElementById('submitButton');
+
+    // Menyimpan nilai awal dari setiap input
+    const initialValues = {};
+    inputs.forEach(input => {
+        initialValues[input.id] = input.value;
+    });
+
+    function checkInputs() {
+        let hasChanged = false;
+        inputs.forEach(input => {
+            if (input.value !== initialValues[input.id]) {
+                hasChanged = true;
+            }
+        });
+
+        if (hasChanged) {
+            submitButton.classList.remove('bg-gray-100');
+            submitButton.classList.add('btn-primary');  // atau kelas yang sesuai untuk tombol aktif
+            submitButton.disabled = false;
+        } else {
+            submitButton.classList.remove('btn-primary');  // atau kelas yang sesuai untuk tombol aktif
+            submitButton.classList.add('bg-gray-100');
+            submitButton.disabled = true;
+        }
+    }
+
+    inputs.forEach(input => {
+        input.addEventListener('input', checkInputs);
+    });
+
+    // Inisialisasi tombol pada saat halaman dimuat
+    checkInputs();
+});
+
 </script>
 </body>
 </html>

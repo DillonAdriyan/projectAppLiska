@@ -17,7 +17,7 @@ class UpdateUserForm(forms.ModelForm):
         fields = ['username', 'email', 'first_name', 'last_name']
 
 class UpdateProfileForm(forms.ModelForm):
-    photo_profile = forms.ImageField(widget=forms.FileInput(attrs={'id': 'profilePic','class': 'grow hidden'}), required=False)
+    photo_profile = forms.ImageField(widget=forms.FileInput(attrs={'class': 'grow hidden'}), required=False)
     typer_user = forms.ChoiceField(choices=UserProfile.TYPE_USER_CHOICES, required=False, widget=forms.Select(attrs={'class': 'grow'}))
     kelas = forms.ChoiceField(choices=UserProfile.KELAS_CHOICES, required=False, widget=forms.Select(attrs={'class': 'grow'}))
     jurusan = forms.ChoiceField(choices=UserProfile.JURUSAN_CHOICES, required=False, widget=forms.Select(attrs={'class': 'grow'}))
@@ -112,7 +112,7 @@ class RegistrationForm(UserCreationForm):
 class BukuForm(forms.ModelForm):
     class Meta:
         model = Buku
-        fields = ['judul', 'sinopsis', 'buku_pdf', 'created_by', 'sampul']
+        fields = ['judul', 'sinopsis', 'buku_link', 'created_by', 'sampul']
         widgets = {
             'created_by': forms.HiddenInput(),
         }

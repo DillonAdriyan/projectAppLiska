@@ -57,9 +57,13 @@ def home(request):
     blogs = Blog.objects.all()[:5]
     
     # Menyertakan informasi apakah user sudah like blog atau belum, dan menghitung total jumlah likes
-    for blog in blogs:
+    if request.user.is_authenticated:
+     for blog in blogs:
         blog.is_liked = Like.objects.filter(blog=blog, user=request.user).exists()
         blog.total_likes = Like.objects.filter(blog=blog).count()  # Menghitung total jumlah likes
+    else:
+     for blog in blogs:
+      blog.total_likes = Like.objects.filter(blog=blog).count()  # Menghitung total jumlah likes
         
     context = {'blogs': blogs, 'bukus': bukus}
     return render(request, "home/home.html", context)
@@ -229,7 +233,7 @@ def update_profile_view(request, user_id):
     else:
         user_form = UpdateUserForm(instance=user)
         profile_form = UpdateProfileForm(instance=userprofile)
-
+    profile_form.fields['photo_profile'].widget.attrs.update({'id': 'profile-input'})
     context = {'user': user, 'user_form': user_form, 'profile_form': profile_form}
     return render(request, 'users/update_profile.html', context)
 
@@ -382,7 +386,7 @@ def buku(request):
 
     form.fields['judul'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2 input-custom','placeholder': 'Masukkan Judul...'})
     form.fields['sinopsis'].widget.attrs.update({'class': 'textarea textarea-primary textarea-lg w-full mt-2 textarea-custom', 'placeholder': 'Masukkan Isi...'})
-    form.fields['buku_pdf'].widget.attrs.update({'class': 'file-input file-input-bordered file-input-primary w-full mt-2'})
+    form.fields['buku_link'].widget.attrs.update({'class': 'input input-bordered input-primary w-full mt-2'})
     form.fields['sampul'].widget.attrs.update({'class': 'file-input file-input-bordered file-input-primary w-full mt-2'})
 
     bukus = Buku.objects.filter(created_by=user)
@@ -453,6 +457,10 @@ def blog_detail(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
     blog.isi = markdown.markdown(blog.isi)
     return render(request, 'detail/blog-detail.html', {'blog': blog})
+    
+def buku_detail(request, buku_id):
+    buku = get_object_or_404(Buku, pk=buku_id)
+    return render(request, 'detail/buku-detail.html', {'buku': buku})
     
 @login_required
 def puisi_detail(request, puisi_id):

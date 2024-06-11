@@ -19,6 +19,7 @@ urlpatterns = [
     path("cerita/", views.cerita, name="cerita"),
     path('login/', views.login_view, name='login'),
     path('blog/<int:blog_id>/', views.blog_detail, name='blog_detail'),
+    path('buku/<int:buku_id>/', views.buku_detail, name='buku_detail'),
     path('puisi/<int:puisi_id>/', views.puisi_detail, name='puisi_detail'),
     path('logout/', views.logout_view, name='logout'),
     path('create_post/', views.create_post, name='create_post'),

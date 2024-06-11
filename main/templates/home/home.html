@@ -6,7 +6,7 @@
  <!-- end navbar section  -->
 
   <!-- start section hero -->
-  <section id="hero" class="md:pb-32 pt-20">
+  <section id="hero" class="md:pb-32 pt-12">
    <div class="container">
     <div class="flex flex-wrap">
      <div class="w-full px-4 md:w-1/2 self-center text-start mt-12">
@@ -17,7 +17,6 @@
        di e-LISKA
       </h1>
       <p class="text-start font-medium text-sm md:text-md text-base-content">
-       Tulis Cerita, Puisi, Berita, dan Buku kamu di Liska !,
       </p>
       <p class="text-start text-base-content font-medium text-sm md:text-md">
        mari bersama berbagi cerita dan ilmu yang bermanfaat.
@@ -203,6 +202,7 @@
 <div class="carousel carousel-center space-x-4 rounded-box w-full ">
     {% if bukus %}
         {% for buku in bukus %}
+        <a href="{% url 'buku_detail' buku.id %}">
             <div class="carousel-item">
                 <div class="">
                      <img class="rounded-box overflow-hidden" src="{{ buku.sampul.url }}" width="200" height="auto">
@@ -214,6 +214,7 @@
                     </p>
                 </div>
             </div>
+        </a>
         {% endfor %}
     {% else %}
         <p>Tidak ada buku saat ini.</p>
@@ -258,7 +259,7 @@
                 <div class="w-full pb-6 rounded-xl shadow-md bg-white dark:bg-base-200 overflow-hidden">
                     <img class="mx-auto w-full max-h-[100px] object-cover my-auto" src="{{ blog.gambar.url }}" alt="Blog" />
                     <h2 class="pl-4 font-bold text-accent-content dark:text-accent-content text-2xl pt-3">{{ blog.judul|upper }}</h2>
-                    <h3 class="text-sm inline-block text-gray-600 ml-4 pb-2 font-semibold">
+                    <h3 class="text-xs inline-block text-gray-600 ml-4 pb-2 font-semibold">
                         Ditulis oleh:
                         <span class="text-primary">{{ blog.created_by.first_name|title }} {{ blog.created_by.last_name|title }}</span>
                     </h3>
@@ -266,15 +267,21 @@
                         {{ blog.isi }}
                     </p>
                 </div>
-                <div class="w-32 h-12 rounded-full mt-2 bg-white dark:bg-base-200 mr-8 shadow-md text-center relative">
+                <div class="w-28 h-10 rounded-full mt-2 bg-white dark:bg-base-200 mr-8 shadow-md text-center relative">
                     {% if user.is_authenticated %}
                         <form action="{% url 'like_blog' blog.id %}" method="POST" class="inline">
                             {% csrf_token %}
-                            <button type="submit" class="hover:text-primary absolute right-0 mr-2">
-                                <img class="dark:bg-white h-8 mt-2 w-8 py-2 rounded-full ml-3" src="{% static 'resource/like.svg' %}" alt="Like" />
+                            
+                            <button type="submit" class="hover:text-primary absolute right-0 mt-1 mr-2">
+                                <img class="dark:bg-white h-8 w-8 py-2 rounded-full ml-3" src="{% static 'resource/like.svg' %}" alt="Like" />
                     <span id="likescount" class="ml-2 mt-3 block text-start text-xs">{{ blog.total_likes }} Like</span>
                             </button>
                         </form>
+                        {% else %}
+                            <button type="submit" class="hover:text-primary absolute right-0 mt-1 mr-2">
+                                <img class="dark:bg-white h-8 w-8 py-2 rounded-full ml-3" src="{% static 'resource/like.svg' %}" alt="Like" onclick="likeNot()"/>
+                    <span id="likescount" class="ml-3 mt-3 block text-start text-xs">{{ blog.total_likes }} Like</span>
+                            </button>
                     {% endif %}
                 </div>
             </div>
@@ -439,6 +446,9 @@
 like = document.querySelector('#likescount')
  function showLike() {
   like.classList.remove('hidden')
+ }
+ function likeNot() {
+  alert('silahkan login terlebih dahulu ')
  }
 </script>
  {% endblock %}
