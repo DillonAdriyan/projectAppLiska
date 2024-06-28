@@ -21,7 +21,7 @@ import requests
 import openai
 import os
 
-os.environ["OPENAI_API_KEY"] = "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"
+
 
 
 # class BuatBuku(LoginRequiredMixin, CreateView):
