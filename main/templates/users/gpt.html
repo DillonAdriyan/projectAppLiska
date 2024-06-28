@@ -1,0 +1,23 @@
+<!-- templates/users/gpt.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatGPT Integration</title>
+</head>
+<body>
+    <h1>ChatGPT Integration</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    {% if response_text %}
+        <h2>Response:</h2>
+        <p>{{ response_text }}</p>
+    {% endif %}
+    {% if error_message %}
+        <h2>Error:</h2>
+        <p>{{ error_message }}</p>
+    {% endif %}
+</body>
+</html>

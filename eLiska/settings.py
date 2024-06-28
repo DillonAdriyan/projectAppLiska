@@ -1,5 +1,7 @@
 import os
 import sys
+from decouple import config
+from pathlib import Path
 
 # 
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -8,7 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL = 'dashboard'  # Ganti 'home' dengan nama rute halaman yang sesuai
+ # Ganti 'home' dengan nama rute halaman yang sesuai
 
 # Kemudian, Anda dapat menetapkan MEDIA_ROOT seperti yang Anda tunjukkan sebelumnya:
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -24,10 +26,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# myproject/settings.py
+
+OPENAI_API_KEY = config('OPENAI_API_KEY')
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,7 +43,7 @@ SECRET_KEY = 'django-insecure-uj(6k!5e)_r4j6r##42vd)#*)u!jnpd+*eb8pv*=4njn@^ideb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '.ngrok-free.app', '192.168.26.160', '10.0.0.39']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '.ngrok-free.app', 'localhost']
 
 COMPRESS_ROOT = BASE_DIR / 'main/static'
 
@@ -51,13 +55,21 @@ STATICFILES_FINDERS = ('compressor.finders.CompressorFinder','django.contrib.sta
 
 AUTH_USER_MODEL = 'main.CustomUser'  # Ganti dengan nama app dan model yang benar
 
-
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '59756919568-ucd20kghtmrh6rgnafmv06iufq417gpr.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
 INSTALLED_APPS = [
     'main',
-    'sapaska',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -65,6 +77,9 @@ INSTALLED_APPS = [
     'compressor',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'sapaska',
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'tailwind'
 CRISPY_TEMPLATE_PACK = 'tailwind'
@@ -100,9 +115,15 @@ TEMPLATES = [
     },
 ]
 # settings.py
+SITE_ID = 1
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
+LOGIN_REDIRECT_URL = 'dashboard' 
+LOGOUT_REDIRECT_URL = 'login' 
 MEDIA_URL = '/media/'
-
 
 
 WSGI_APPLICATION = 'eLiska.wsgi.application'
@@ -122,7 +143,7 @@ DATABASES = {
 #         'PORT': '',
     }
 }
-LOGIN_URL = 'login'  # Ganti 'login' dengan nama rute halaman login AuthenticationMiddleware
+# LOGIN_URL = 'login'  # Ganti 'login' dengan nama rute halaman login AuthenticationMiddleware
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

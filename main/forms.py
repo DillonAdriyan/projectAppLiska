@@ -5,6 +5,11 @@ from .models import Buku, Blog, CeritaPendek, Berita, Puisi, CustomUser, UserPro
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
+# myapp/forms.py
+
+
+class GptForm(forms.Form):
+    prompt = forms.CharField(label='Enter a prompt', max_length=1000)
 
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'grow hidden', 'value': '{{ user.username }}'}))

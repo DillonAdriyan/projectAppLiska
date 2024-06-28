@@ -1,22 +1,27 @@
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.models import User
-from .forms import RegistrationForm, BukuForm, BlogForm, CeritaForm, BeritaForm, PuisiForm, CustomRegistrationForm, PostForm, UpdateUserForm, UpdateProfileForm
+from .forms import RegistrationForm, BukuForm, BlogForm, CeritaForm, BeritaForm, PuisiForm, CustomRegistrationForm, PostForm, UpdateUserForm, UpdateProfileForm, GptForm
 # views.py
 from django.views.generic.edit import CreateView
-from .models import Buku, Blog, CeritaPendek, Berita, Puisi, UserProfile
+from .models import Buku, Blog, CeritaPendek, Berita, Puisi, UserProfile, Like
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 import markdown
 import markdown2
 from django.contrib.auth import logout
 from django.contrib import messages
+import requests
 
+import openai
+import os
 
+os.environ["OPENAI_API_KEY"] = "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"
 
 
 # class BuatBuku(LoginRequiredMixin, CreateView):
@@ -49,8 +54,6 @@ from django.contrib import messages
 #     success_url = '/success/' 
 # 
 
-from django.shortcuts import HttpResponseRedirect, get_object_or_404, reverse
-from .models import Like
 
 def home(request):
     bukus = Buku.objects.all()[:10]
@@ -67,7 +70,7 @@ def home(request):
         
     context = {'blogs': blogs, 'bukus': bukus}
     return render(request, "home/home.html", context)
-from django.http import JsonResponse
+
 
 @login_required
 def like_blog(request, blog_id):
@@ -85,6 +88,41 @@ def like_blog(request, blog_id):
 
 
 
+
+
+from django.conf import settings
+
+openai.api_key = settings.OPENAI_API_KEY
+
+def get_gpt_response(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response
+
+
+
+
+
+def chatgpt_view(request):
+    response_text = ""
+    error_message = ""
+    
+    if request.method == 'POST':
+        form = GptForm(request.POST)
+        if form.is_valid():
+            prompt = form.cleaned_data['prompt']
+            response = get_gpt_response(prompt)
+            
+            if 'choices' in response:
+                response_text = response['choices'][0]['message']['content']
+            else:
+                error_message = response.get('error', 'Unexpected API response structure.')
+    else:
+        form = GptForm()
+    
+    return render(request, 'users/gpt.html', {'form': form, 'response_text': response_text, 'error_message': error_message})
 
 
 

@@ -9,7 +9,7 @@ urlpatterns = [
     path("dashboard/", views.dashboard_view, name="dashboard"),
     path("setting/", views.setting_view, name="setting"),
     path("profile/", views.profile_view, name="profile"),
-    path("accounts/", include("django.contrib.auth.urls")),
+    #path("accounts/", include("django.contrib.auth.urls")),
     path("register/", views.register_user, name="register"),
     path("buku/", views.buku, name="buku"),
     path('download/<int:buku_id>/', views.download_buku, name='download_book'),
@@ -25,7 +25,9 @@ urlpatterns = [
     path('create_post/', views.create_post, name='create_post'),
     path('post/<int:post_id>/', views.post_detail, name='post'),
     path('blog/<int:blog_id>/like/', views.like_blog, name='like_blog'),
-    path('profile/update/<int:user_id>/', views.update_profile_view, name="edit_profile")
+    path('profile/update/<int:user_id>/', views.update_profile_view, name="edit_profile"),
+    path('chatgpt/', views.chatgpt_view, name="chatgpt"),
+    
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
