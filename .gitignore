@@ -5,4 +5,6 @@ main/__pycache__/*
 eLiska/__pycache__/*
 eLiska/**/*.pyc
 media/*
-dynamic-osprey-404114-4f95b76bdec3.json
+dynamic-osprey-404114-4f95b76bdec3.jsondynamic-osprey-404114-4f95b76bdec3.json
+.env
+main/views.py
