@@ -1,6 +1,7 @@
 main/static/CACHE/css/*.css
 main/static/img/*.jpg
 main/node_modules/*
-main/__pycache__
-eLiska/__pycache__
+main/__pycache__/*
+eLiska/__pycache__/*
+eLiska/**/*.pyc
 media/*
